@@ -1,0 +1,56 @@
+{
+  "name": "nocms-server",
+  "version": "0.0.0-development",
+  "description": "Web server for NoCMS sites",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --watch",
+    "prepare": "babel ./src --out-dir ./lib --source-maps --presets env,react",
+    "eslint": "eslint --ext .js, .jsx .",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miles-no/nocms-server.git"
+  },
+  "keywords": [
+    "react",
+    "nocms"
+  ],
+  "author": "Jørgen Landsnes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/miles-no/nocms-server/issues"
+  },
+  "homepage": "https://github.com/miles-no/nocms-server#readme",
+  "dependencies": {
+    "prop-types": "^15.6.0",
+    "react-aria-modal": "^2.11.1",
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "condition-circle": "^1.5.0",
+    "eslint": "^4.10.0",
+    "eslint-config-webteam": "^2.0.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "semantic-release": "^8.2.0",
+    "webpack": "^3.8.1"
+  },
+  "peerDependencies": {
+    "react": "^15.0.0 || ^16.0.0"
+  },
+  "release": {
+    "verifyConditions": "condition-circle"
+  }
+}
