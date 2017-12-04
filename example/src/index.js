@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React from 'react';
-import nocmsServer from 'nocms-server';
+import nocmsServer from '../../src';
 
 import templates from './templates';
 

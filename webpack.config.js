@@ -1,4 +1,5 @@
 const path = require('path');
+
 const config = {
   entry: {
     app: './example/src',
@@ -15,7 +16,7 @@ const config = {
       {
         test: /\.(jsx|js)$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
       },
       {
         test: /\.(jsx|js)$/,
@@ -24,11 +25,11 @@ const config = {
       },
     ],
   },
-  resolve: {
-    alias: {
-      'nocms-server': path.resolve(__dirname, 'src'),
-    },
-  },
+  // resolve: {
+  //   alias: {
+  //     'nocms-server': path.resolve(__dirname, 'src'),
+  //   },
+  // },
 };
 
 module.exports = config;

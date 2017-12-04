@@ -1,19 +1,18 @@
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const correlator = require('nocms-express-correlation-id');
-const expressHealth = require('express-healthcheck');
-const prometheus = require('prom-client');
-const expressMetrics = require('nocms-express-metrics');
-const nocmsAuth = require('nocms-auth');
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import correlator from 'nocms-express-correlation-id';
 
-const redirectTrailingSlashRequestsMiddleware = require('./middleware/redirect_trailing_slash_requests_middleware');
-const redirects = require('./middleware/redirects');
-const siteResolver = require('./middleware/site_resolver');
-const clearCacheMiddleware = require('./middleware/clear_cache_middleware');
+import expressHealth from 'express-healthcheck';
+import prometheus from 'prom-client';
+import expressMetrics from 'nocms-express-metrics';
+import nocmsAuth from 'nocms-auth';
 
-const requestHandler = require('./middleware/request_handler/');
-
-const errorHandler = require('./middleware/error_handler_middleware');
+import redirectTrailingSlashRequestsMiddleware from './middleware/redirect_trailing_slash_requests_middleware';
+import redirects from './middleware/redirects';
+import siteResolver from './middleware/site_resolver';
+import clearCacheMiddleware from './middleware/clear_cache_middleware';
+import requestHandler from './middleware/request_handler/';
+import errorHandler from './middleware/error_handler_middleware';
 
 let config = {
   port: 3000,
