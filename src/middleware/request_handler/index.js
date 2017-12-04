@@ -1,10 +1,16 @@
-const config = require('nocms-config-client').get();
 const requestPipeline = require('./pipeline');
 const dataProvider = require('./data_provider');
 const templateProvider = require('./template_provider');
 const errorPipeline = require('./error_pipeline');
+const i18nDataProvider = require('./i18n');
+
+const config = {};
 
 module.exports = {
+  setConfig: (cfg) => {
+    Object.assign(config, cfg);
+    i18nDataProvider.init(config.i18nApi, config.languageList);
+  },
   middleware: (req, res, next) => {
     const url = req.url.split('?')[0];
     const options = {
@@ -12,6 +18,7 @@ module.exports = {
       site: res.locals.site,
       siteLang: res.locals.lang,
       config,
+      logger: config.logger,
       claims: res.locals.claims,
       isNoCMSUser: res.locals.isNoCMSUser,
       authorizationHeader: res.locals.authorizationHeader,

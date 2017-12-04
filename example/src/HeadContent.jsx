@@ -1,5 +1,5 @@
 import React from 'react';
 
 module.exports = () => {
-  return null;
+  return <meta name="foo" content="FOO" />;
 };

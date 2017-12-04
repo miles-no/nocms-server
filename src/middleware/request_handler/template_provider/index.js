@@ -3,8 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import Page from '../../../components/Page.jsx';
 
-const logger = require('nocms-logger')();
-const dictionary = require('../../../../src/nocms/dictionary');
+const dictionary = (p) => p; // TODO
 
 let areas = {};
 let templates = [];
@@ -25,7 +24,7 @@ const renderResponse = (nocms, pageData) => {
   try {
     return `<!DOCTYPE html>${ReactDOM.renderToStaticMarkup(pageOutput)}`;
   } catch (ex) {
-    logger.error('React render to static markup exception', ex);
+    nocms.logger.error('React render to static markup exception', ex);
     return dictionary('Det oppsto en feil');
   }
 };

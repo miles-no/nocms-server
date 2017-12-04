@@ -1,11 +1,10 @@
 const request = require('superagent');
-const config = require('nocms-config-client').get();
-const logger = require('nocms-logger')();
 
 let phrases = null;
+const config = {};
 
 const fetchData = (nocms, resolve, reject) => {
-  logger.debug('Fetching i18n data');
+  nocms.logger.debug('Fetching i18n data');
   request
     .get(`${config.i18nApi}/phrases`)
     .set('Accept', 'application/json')
@@ -31,11 +30,12 @@ const fetchData = (nocms, resolve, reject) => {
     });
 };
 
-fetchData();
-
-setInterval(fetchData, 60000);
-
 module.exports = {
+  init(i18nApi, languageList) {
+    Object.assign(config, { i18nApi, languageList });
+    fetchData();
+    setInterval(fetchData, 60000);
+  },
   getPhrases(nocms) {
     return new Promise((resolve, reject) => {
       if (phrases) {
@@ -44,5 +44,12 @@ module.exports = {
       }
       fetchData(nocms, resolve, reject);
     });
+  },
+  dictionary(phraseKey, lang) {
+    if (!phrases[phraseKey] || !phrases[phraseKey][lang]) {
+      return phraseKey;
+    }
+
+    return phrases[phraseKey][lang];
   },
 };

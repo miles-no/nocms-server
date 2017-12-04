@@ -1,5 +1,5 @@
 const requestPipeline = require('../pipeline');
-const dictionary = require('../../../../src/nocms/dictionary');
+const dictionary = require('../i18n/').dictionary;
 
 const titles = {
   404: dictionary('Siden finnes ikke'),
@@ -15,6 +15,7 @@ module.exports = function nocmsErrorHandler(nocms) {
     url: nocms.url,
     config: nocms.config,
     site: nocms.site,
+    logger: nocms.logger,
     isNoCMSUser: nocms.res.locals.isNoCMSUser,
     authorizationToken: nocms.res.locals.authorizationToken,
     isLoggedIn: nocms.res.locals.isLoggedIn,

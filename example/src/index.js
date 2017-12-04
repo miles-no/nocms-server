@@ -1,10 +1,8 @@
 import React from 'react';
 import templates from './templates';
-import ESI from '../src/nocms/components/atoms/ESI.jsx';
 
-const nocms = require('../nocms-render-server/');
-const config = require('nocms-config-client').get();
-const redirects = require('../server/redirects');
+const nocms = require('nocms-server/');
+const redirects = require('./redirects');
 const HeadContent = require('./HeadContent.jsx');
 const logger = require('nocms-logger');
 
@@ -22,7 +20,10 @@ console.log('DISCUSS: MainContent sets moment locals. Should moment be a depenen
 
 const initConfig = {
   useGzip: false,
-  adminTokenSecret: config.adminTokenSecret,
+  adminTokenSecret: 'shhhhhh',
+  pageService: 'localhost:3001',
+  i18nApi: 'localhost:3002',
+  languageList: ['no', 'en'],
 };
 
 const myRequestLogger = (req, res, next) => {
@@ -49,8 +50,8 @@ const app1DataSource = (nocms) => {
 };
 
 const areas = {
-  topContent: (pageData) => { return <ESI src={`/fragments/menu?site=${pageData.site || config.defaultSite}`} />; },
-  bottomContent: <ESI src={'/fragments/footer?site=no'} />,
+  topContent: (pageData) => { return <p>{pageData.title}: Put your top content here</p>; },
+  bottomContent: <p>Put your bottom content here</p>,
 };
 
 const server = nocms.init(initConfig)
@@ -63,7 +64,6 @@ const server = nocms.init(initConfig)
   .addDataSource('*', app1DataSource) // Better name
   .setAreas(areas)
   .setTemplates(templates)
-  .on('error', logger.error)
   .start();
 
 console.log('MIDDLEWARE: ', server.getMiddleware());

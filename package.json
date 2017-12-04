@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --watch",
+    "watch": "webpack --watch",
+    "example": "node ./example/build/app.js",
     "prepare": "babel ./src --out-dir ./lib --source-maps --presets env,react",
     "eslint": "eslint --ext .js, .jsx .",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
@@ -25,8 +26,17 @@
   },
   "homepage": "https://github.com/miles-no/nocms-server#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "express-healthcheck": "^0.1.0",
+    "nocms-auth": "^1.0.0",
+    "nocms-express-correlation-id": "^1.0.2",
+    "nocms-express-metrics": "^2.0.3",
+    "prom-client": "^10.2.2",
     "prop-types": "^15.6.0",
     "react-aria-modal": "^2.11.1",
+    "superagent": "^3.8.1",
+    "url-pattern": "^1.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -42,10 +52,13 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
+    "nocms-events": "^1.2.0",
+    "nocms-logger": "^3.3.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "semantic-release": "^8.2.0",
-    "webpack": "^3.8.1"
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.5"
   },
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0"

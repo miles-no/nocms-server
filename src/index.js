@@ -1,11 +1,9 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const correlator = require('nocms-express-correlation-id');
-const expressLogger = require('nocms-express-logger');
 const expressHealth = require('express-healthcheck');
 const prometheus = require('prom-client');
 const expressMetrics = require('nocms-express-metrics');
-const { listenToGlobal} = require('nocms-events');
 const nocmsAuth = require('nocms-auth');
 
 const redirectTrailingSlashRequestsMiddleware = require('./middleware/redirect_trailing_slash_requests_middleware');
@@ -17,11 +15,13 @@ const requestHandler = require('./middleware/request_handler/');
 
 const errorHandler = require('./middleware/error_handler_middleware');
 
-const logger = require('nocms-logger')();
-
 let config = {
   port: 3000,
   tokenSecret: '',
+  logger: console,
+  pageService: null,
+  i18nApi: null,
+  languageList: [],
 };
 
 let app = null;
@@ -43,10 +43,6 @@ const initMiddleware = () => {
     {
       name: 'correlator',
       fn: correlator(),
-    },
-    {
-      name: 'expressLogger',
-      fn: expressLogger(),
     },
     {
       name: 'health',
@@ -75,7 +71,7 @@ const initMiddleware = () => {
     },
     {
       name: 'nocms-auth',
-      fn: nocmsAuth.readClaims(config.adminTokenSecret, logger),
+      fn: nocmsAuth.readClaims(config.adminTokenSecret, config.logger),
     },
     {
       name: 'clearCacheMiddleware',
@@ -122,9 +118,12 @@ const setAreas = (areas) => {
 };
 
 const start = () => {
+  requestHandler.setConfig(config);
+  errorHandler.setConfig(config);
   let middleware = initMiddleware();
   api.addMiddleware('requestHandler', requestHandler.middleware); // TODO: Should this call next?
-  api.addMiddleware('errorHandler', errorHandler); // TODO: Should error handlers be added seperately?
+  api.addMiddleware('errorHandler', errorHandler.middleware); // TODO: Should error handlers be added seperately?
+  // TODO: Add middleware: Request logger
 
   middleware = middleware.concat(externalMiddlewares);
 
@@ -138,7 +137,7 @@ const start = () => {
   });
 
   app.listen(config.port, () => {
-    logger.info(`Main web server listening on port ${config.port}`);
+    config.logger.info(`Main web server listening on port ${config.port}`);
   });
 
   return api;
@@ -155,11 +154,6 @@ const addMiddleware = (name, url, fn) => {
     mw.url = null;
   }
   externalMiddlewares.push(mw);
-  return api;
-};
-
-const on = (eventName, handler) => {
-  listenToGlobal(eventName, handler);
   return api;
 };
 
@@ -181,7 +175,6 @@ api = {
   addSites,
   setDefaultSite,
   addMiddleware,
-  on,
   start,
   getMiddleware,
   setAreas,
