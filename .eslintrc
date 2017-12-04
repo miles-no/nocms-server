@@ -6,5 +6,8 @@
   "extends": [
     "webteam",
     "webteam/rules/react"
-  ]
+  ],
+  "rules": {
+    "no-param-reassign": 0
+  }
 }

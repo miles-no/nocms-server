@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
 import React from 'react';
+import nocmsServer from 'nocms-server';
+
 import templates from './templates';
 
-const nocms = require('nocms-server/');
 const redirects = require('./redirects');
 const HeadContent = require('./HeadContent.jsx');
 const logger = require('nocms-logger');
@@ -24,7 +26,22 @@ const initConfig = {
   pageService: 'localhost:3001',
   i18nApi: 'localhost:3002',
   languageList: ['no', 'en'],
+  logger,
+  port: 9000,
 };
+
+const sites = [
+  {
+    name: 'nocms-example',
+    domains: ['localhost:9080'],
+    lang: 'en',
+  },
+  {
+    name: 'nocms-example-2',
+    domains: ['127.0.0.1:9000'],
+    lang: 'no',
+  },
+];
 
 const myRequestLogger = (req, res, next) => {
   console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
@@ -52,15 +69,16 @@ const app1DataSource = (nocms) => {
 const areas = {
   topContent: (pageData) => { return <p>{pageData.title}: Put your top content here</p>; },
   bottomContent: <p>Put your bottom content here</p>,
+  headContent: <HeadContent />,
 };
 
-const server = nocms.init(initConfig)
+const server = nocmsServer.init(initConfig)
   .addMiddleware('localsCombiner', localsCombiner) // TODO: Remove after nocms-auth is updated
   .addMiddleware('middlwareLogger', myRequestLogger)
   .addRedirects(redirects)
   .addRedirect('/foo', '/bar')
-  .addSites(config.sites)
-  .setDefaultSite(config.defaultSite, config.defaultLang)
+  .addSites(sites)
+  .setDefaultSite('nocms-example', 'en') // TODO: Lang could be gotten from sites[site].lang
   .addDataSource('*', app1DataSource) // Better name
   .setAreas(areas)
   .setTemplates(templates)

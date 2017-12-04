@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { listenToGlobal, stopListenToGlobal } from 'nocms-events';
 
 const getTemplateComponent = (templateId, templates) => {
@@ -8,14 +7,6 @@ const getTemplateComponent = (templateId, templates) => {
     return tmpl.id === templateId;
   });
   return template.component;
-};
-
-const setMomentLocale = (lang) => {
-  if (lang === 'en') {
-    moment.locale('en');
-    return;
-  }
-  moment.locale('nb');
 };
 
 export default class MainContent extends Component {
@@ -28,7 +19,6 @@ export default class MainContent extends Component {
       lang: props.pageData.lang || 'no',
     };
     listenToGlobal('nocms.toggle-edit', this.toggleEdit);
-    setMomentLocale(props.pageData.lang);
   }
 
   getChildContext() {
@@ -42,7 +32,6 @@ export default class MainContent extends Component {
   }
 
   componentWillReceiveProps(props) {
-    setMomentLocale(props.pageData.lang);
     this.setState({ lang: props.pageData.lang });
   }
 

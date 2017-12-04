@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import Page from '../../../components/Page.jsx';
 
-const dictionary = (p) => p; // TODO
+const dictionary = require('../i18n/').dictionary;
 
 let areas = {};
 let templates = [];

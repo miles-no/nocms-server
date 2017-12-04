@@ -1,3 +1,4 @@
+const path = require('path');
 const config = {
   entry: {
     app: './example/src',
@@ -25,7 +26,7 @@ const config = {
   },
   resolve: {
     alias: {
-      'nocms-server': '../../src',
+      'nocms-server': path.resolve(__dirname, 'src'),
     },
   },
 };
