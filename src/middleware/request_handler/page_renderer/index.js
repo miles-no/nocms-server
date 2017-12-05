@@ -1,4 +1,4 @@
-module.exports = {
+const api = {
   renderPage(nocms) {
     return new Promise((resolve) => {
       nocms.html = nocms.renderTemplate();
@@ -6,3 +6,5 @@ module.exports = {
     });
   },
 };
+
+export default api;

@@ -2,7 +2,7 @@ import request from 'superagent';
 import { triggerGlobal, listenToGlobal } from 'nocms-events';
 import utils from 'nocms-utils';
 
-require('./link_click_handler');
+import './link_click_handler';
 
 const handleScroll = () => {
   utils.scrollTo(document.body, 0, 400);

@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     from: '/foo',
     to: '/bar',

@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 import React from 'react';
+import logger from 'nocms-logger';
+
 import nocmsServer from '../../src';
-
 import templates from './templates';
+import redirects from './redirects';
+import HeadContent from './HeadContent.jsx';
 
-const redirects = require('./redirects');
-const HeadContent = require('./HeadContent.jsx');
-const logger = require('nocms-logger');
 
 console.log('===========================');
 console.log('STARTING SERVER PACKAGE POC');

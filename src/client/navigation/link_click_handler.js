@@ -1,4 +1,4 @@
-const { listenToGlobal, triggerGlobal } = require('nocms-events');
+import { listenToGlobal, triggerGlobal } from 'nocms-events';
 
 const navigateNatively = [];
 

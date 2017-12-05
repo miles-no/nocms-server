@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import AdminContent from 'nocms-publishing';
-import { AdminContent } from '../../nocms-publishing-test';
+import { AdminContent } from 'nocms-publishing';
 
 let templates = [];
 let sections = [];
 let languages = [];
 
-export default {
+const api = {
   setTemplates(tmpl) {
     templates = tmpl;
     return this;
@@ -30,3 +29,5 @@ export default {
     return this;
   },
 };
+
+export default api;

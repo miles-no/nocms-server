@@ -4,7 +4,7 @@ const defaults = {
   lang: 'en',
 };
 
-module.exports = {
+const api = {
   addSites: (sites) => {
     sites.forEach((s) => {
       s.domains.forEach((domain) => {
@@ -39,3 +39,6 @@ module.exports = {
     next();
   },
 };
+
+
+export default api;

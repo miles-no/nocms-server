@@ -83,7 +83,7 @@ const PageStore = class PageStore {
   }
 };
 
-module.exports = {
+const api = {
   init(config) {
     this.store = new PageStore(config);
     this.store.loadDataFromHTML();
@@ -126,3 +126,5 @@ module.exports = {
     return this.store.getPageData();
   },
 };
+
+export default api;

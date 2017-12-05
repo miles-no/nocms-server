@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import JavascriptObject from './JavascriptObject.jsx';
 import MainContent from './MainContent.jsx';
 
-class Page extends React.Component {
+export default class Page extends React.Component {
   getChildContext() {
     const { config, adminConfig } = this.props;
     return {
@@ -100,5 +100,3 @@ Page.childContextTypes = {
   config: PropTypes.object,
   adminConfig: PropTypes.object,
 };
-
-module.exports = Page;

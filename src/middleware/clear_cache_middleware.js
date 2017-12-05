@@ -1,6 +1,6 @@
 const request = require('superagent');
 
-module.exports = function clearCacheMiddleware(req, res, next) {
+export default function clearCacheMiddleware(req, res, next) {
   if (req.url === '/nocms/clear_entire_cache') {
     if (!(res.locals.claims && res.locals.claims.publisher)) {
       res.status(403).send('Forbidden');
@@ -16,4 +16,4 @@ module.exports = function clearCacheMiddleware(req, res, next) {
     return;
   }
   next();
-};
+}

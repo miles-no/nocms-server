@@ -1,5 +1,5 @@
-const ServiceDataProvider = require('./service_data_provider');
-const UrlPattern = require('url-pattern');
+import UrlPattern from 'url-pattern';
+import ServiceDataProvider from './service_data_provider';
 
 const dataSources = [];
 
@@ -43,39 +43,37 @@ const getCustomDataSource = (nocms) => {
   });
 };
 
-module.exports = {
-  fetchData(nocms) {
-    return new Promise((resolve, reject) => {
-      const dataSource = getCustomDataSource(nocms);
-      if (dataSource) {
-        dataSource.fn(nocms)
-          .then((res) => { resolve(res); })
-          .catch((err) => {
-            reject(applyException(nocms, err));
-          });
-        return;
-      }
-      if (nocms.pageId) {
-        ServiceDataProvider.getPageDataByPageId(nocms)
-          .then((res) => {
-            resolve(applyPageData(nocms, res));
-          })
-          .catch((err) => {
-            reject(applyException(nocms, err));
-          });
-      } else {
-        ServiceDataProvider.getPageDataByUrl(nocms)
-          .then((res) => {
-            resolve(applyPageData(nocms, res));
-          })
-          .catch((err) => {
-            reject(applyException(nocms, err));
-          });
-      }
-    });
-  },
-  addDataSource(pattern, fn) {
-    const dataSourcePattern = typeof pattern === 'string' ? new UrlPattern(pattern) : pattern;
-    dataSources.push({ pattern: dataSourcePattern, fn });
-  },
-};
+export function fetchData(nocms) {
+  return new Promise((resolve, reject) => {
+    const dataSource = getCustomDataSource(nocms);
+    if (dataSource) {
+      dataSource.fn(nocms)
+        .then((res) => { resolve(res); })
+        .catch((err) => {
+          reject(applyException(nocms, err));
+        });
+      return;
+    }
+    if (nocms.pageId) {
+      ServiceDataProvider.getPageDataByPageId(nocms)
+        .then((res) => {
+          resolve(applyPageData(nocms, res));
+        })
+        .catch((err) => {
+          reject(applyException(nocms, err));
+        });
+    } else {
+      ServiceDataProvider.getPageDataByUrl(nocms)
+        .then((res) => {
+          resolve(applyPageData(nocms, res));
+        })
+        .catch((err) => {
+          reject(applyException(nocms, err));
+        });
+    }
+  });
+}
+export function addDataSource(pattern, fn) {
+  const dataSourcePattern = typeof pattern === 'string' ? new UrlPattern(pattern) : pattern;
+  dataSources.push({ pattern: dataSourcePattern, fn });
+}

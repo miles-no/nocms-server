@@ -5,7 +5,7 @@ import correlator from 'nocms-express-correlation-id';
 import expressHealth from 'express-healthcheck';
 import prometheus from 'prom-client';
 import expressMetrics from 'nocms-express-metrics';
-import nocmsAuth from 'nocms-auth';
+import { readClaims } from 'nocms-auth';
 
 import redirectTrailingSlashRequestsMiddleware from './middleware/redirect_trailing_slash_requests_middleware';
 import redirects from './middleware/redirects';
@@ -70,7 +70,7 @@ const initMiddleware = () => {
     },
     {
       name: 'nocms-auth',
-      fn: nocmsAuth.readClaims(config.adminTokenSecret, config.logger),
+      fn: readClaims(config.adminTokenSecret, config.logger),
     },
     {
       name: 'clearCacheMiddleware',

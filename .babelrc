@@ -2,9 +2,9 @@
   "presets": [
     ["env", {
       "targets": {
-        "browsers": ["last 2 versions", "IE 11"]
+        "node": "current",
       },
-      "debug": false
+      "debug": true
     }],
     "react"
   ]

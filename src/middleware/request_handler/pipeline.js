@@ -3,7 +3,7 @@ const TemplateProvider = require('./template_provider/');
 const PageRenderer = require('./page_renderer/');
 const I18nProvider = require('./i18n/');
 
-module.exports = {
+const api = {
   init(nocms) {
     return new Promise((resolve) => {
       resolve(nocms);
@@ -37,3 +37,5 @@ module.exports = {
       .end();
   },
 };
+
+export default api;

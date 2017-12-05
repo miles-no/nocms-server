@@ -1,6 +1,6 @@
 let redirects = [];
 
-module.exports = {
+const api = {
   addRedirects: (newRedirects) => {
     redirects = redirects.concat(newRedirects);
   },
@@ -17,3 +17,5 @@ module.exports = {
     next();
   },
 };
+
+export default api;

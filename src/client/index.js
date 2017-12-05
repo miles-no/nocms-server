@@ -4,7 +4,7 @@ import NoCMSClient from './NoCMSClient.jsx';
 
 let templates = [];
 
-export default {
+const api = {
   setTemplates(tmpl) {
     templates = tmpl;
     return this;
@@ -14,3 +14,5 @@ export default {
     return this;
   },
 };
+
+export default api;

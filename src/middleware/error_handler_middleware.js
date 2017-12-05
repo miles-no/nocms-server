@@ -1,7 +1,6 @@
-
 const config = {};
 
-module.exports = {
+const api = {
   middleware: (err, req, res, next) => {
     if (!err) {
       next();
@@ -17,3 +16,5 @@ module.exports = {
     Object.assign(config, cfg);
   },
 };
+
+export default api;

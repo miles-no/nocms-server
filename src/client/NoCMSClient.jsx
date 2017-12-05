@@ -4,7 +4,7 @@ import { triggerGlobal, listenToGlobal } from 'nocms-events';
 import MainContent from '../components/MainContent.jsx';
 import pageStore from './page_store';
 
-require('./navigation');
+import './navigation';
 
 // TODO: Dictionary needs to be loaded and sent to components
 // TODO Tracking need to be put into a seperate package

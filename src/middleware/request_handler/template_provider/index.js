@@ -2,8 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import Page from '../../../components/Page.jsx';
-
-const dictionary = require('../i18n/').dictionary;
+import { dictionary } from '../i18n';
 
 let areas = {};
 let templates = [];
@@ -29,39 +28,39 @@ const renderResponse = (nocms, pageData) => {
   }
 };
 
-module.exports = {
-  fetchTemplate(nocms) {
-    return new Promise((resolve, reject) => {
-      if (nocms.exception) {
-        reject(nocms);
-        return;
-      }
-      nocms.renderTemplate = () => {
-        return renderResponse(nocms, nocms.pageData);
-      };
-      resolve(nocms);
-    });
-  },
-
-  renderException(nocms) {
-    const titles = {
-      404: dictionary('Siden finnes ikke'),
-      500: dictionary('Det oppsto en feil'),
+export function fetchTemplate(nocms) {
+  return new Promise((resolve, reject) => {
+    if (nocms.exception) {
+      reject(nocms);
+      return;
+    }
+    nocms.renderTemplate = () => {
+      return renderResponse(nocms, nocms.pageData);
     };
+    resolve(nocms);
+  });
+}
 
-    const errorPageData = {
-      templateId: 'errorPage',
-      statusCode: nocms.exception.statusCode.toString(),
-      uri: nocms.url,
-      pageTitle: titles[nocms.exception.statusCode.toString()] || dictionary('Det oppsto en feil'),
-      lang: nocms.siteLang,
-    };
-    return renderResponse(nocms, errorPageData);
-  },
-  setAreas(a) {
-    areas = Object.assign(areas, a);
-  },
-  setTemplates(tmpl) {
-    templates = tmpl;
-  },
-};
+export function renderException(nocms) {
+  const titles = {
+    404: dictionary('Siden finnes ikke'),
+    500: dictionary('Det oppsto en feil'),
+  };
+
+  const errorPageData = {
+    templateId: 'errorPage',
+    statusCode: nocms.exception.statusCode.toString(),
+    uri: nocms.url,
+    pageTitle: titles[nocms.exception.statusCode.toString()] || dictionary('Det oppsto en feil'),
+    lang: nocms.siteLang,
+  };
+  return renderResponse(nocms, errorPageData);
+}
+
+export function setAreas(a) {
+  areas = Object.assign(areas, a);
+}
+
+export function setTemplates(tmpl) {
+  templates = tmpl;
+}

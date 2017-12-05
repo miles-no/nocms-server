@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 
 const config = {
@@ -16,7 +17,7 @@ const config = {
       {
         test: /\.(jsx|js)$/,
         loader: 'babel-loader',
-        // exclude: /node_modules/,
+        exclude: /node_modules/,
       },
       {
         test: /\.(jsx|js)$/,
@@ -25,6 +26,7 @@ const config = {
       },
     ],
   },
+  plugins: [new webpack.DefinePlugin({ 'global.GENTLY': false })],
   // resolve: {
   //   alias: {
   //     'nocms-server': path.resolve(__dirname, 'src'),

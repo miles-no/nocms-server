@@ -1,17 +1,18 @@
-const request = require('superagent');
+import request from 'superagent';
 
-let phrases = null;
+let phrases = {};
 const config = {};
 
 const fetchData = (nocms, resolve, reject) => {
-  nocms.logger.debug('Fetching i18n data');
   request
     .get(`${config.i18nApi}/phrases`)
     .set('Accept', 'application/json')
     .set('x-correlation-id', nocms ? nocms.correlationId : null) // TODO: Should we have a correlationId here?
     .end((err, res) => {
-      if (reject && err) {
-        reject(err);
+      if (err) {
+        if (reject) {
+          reject(err);
+        }
         return;
       }
       phrases = {};
@@ -30,7 +31,7 @@ const fetchData = (nocms, resolve, reject) => {
     });
 };
 
-module.exports = {
+const api = {
   init(i18nApi, languageList) {
     Object.assign(config, { i18nApi, languageList });
     fetchData();
@@ -53,3 +54,5 @@ module.exports = {
     return phrases[phraseKey][lang];
   },
 };
+
+export default api;

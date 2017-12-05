@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const JavascriptObject = function JavascriptObject(props) {
+export default function JavascriptObject(props) {
   const {
     object,
     objectName,
@@ -10,7 +10,7 @@ const JavascriptObject = function JavascriptObject(props) {
   return (
     <script type="text/plain" id={objectName} dangerouslySetInnerHTML={{ __html: objectString }} /> // eslint-disable-line react/no-danger
   );
-};
+}
 
 JavascriptObject.propTypes = {
   objectName: PropTypes.string,
@@ -24,5 +24,3 @@ JavascriptObject.defaultProps = {
   objectName: 'nocms.pageData',
   object: {},
 };
-
-module.exports = JavascriptObject;

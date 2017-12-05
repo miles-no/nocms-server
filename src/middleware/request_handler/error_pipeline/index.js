@@ -1,12 +1,12 @@
-const requestPipeline = require('../pipeline');
-const dictionary = require('../i18n/').dictionary;
+import requestPipeline from '../pipeline';
+import { dictionary } from '../i18n';
 
 const titles = {
   404: dictionary('Siden finnes ikke'),
   500: dictionary('Det oppsto en feil'),
 };
 
-module.exports = function nocmsErrorHandler(nocms) {
+export default function nocmsErrorHandler(nocms) {
   if (nocms.redirect) {
     requestPipeline.sendRedirect(nocms);
     return;
@@ -48,4 +48,4 @@ module.exports = function nocmsErrorHandler(nocms) {
     .then(requestPipeline.renderPage)
     .then(requestPipeline.sendHtmlResponse)
     .catch(nocms.next);
-};
+}

@@ -6,7 +6,7 @@ const i18nDataProvider = require('./i18n');
 
 const config = {};
 
-module.exports = {
+const api = {
   setConfig: (cfg) => {
     Object.assign(config, cfg);
     i18nDataProvider.init(config.i18nApi, config.languageList);
@@ -62,3 +62,5 @@ module.exports = {
     templateProvider.setTemplates(templates);
   },
 };
+
+export default api;
