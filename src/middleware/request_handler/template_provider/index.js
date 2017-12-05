@@ -28,7 +28,7 @@ const renderResponse = (nocms, pageData) => {
   }
 };
 
-export function fetchTemplate(nocms) {
+const fetchTemplate = (nocms) => {
   return new Promise((resolve, reject) => {
     if (nocms.exception) {
       reject(nocms);
@@ -39,9 +39,9 @@ export function fetchTemplate(nocms) {
     };
     resolve(nocms);
   });
-}
+};
 
-export function renderException(nocms) {
+const renderException = (nocms) => {
   const titles = {
     404: dictionary('Siden finnes ikke'),
     500: dictionary('Det oppsto en feil'),
@@ -55,12 +55,19 @@ export function renderException(nocms) {
     lang: nocms.siteLang,
   };
   return renderResponse(nocms, errorPageData);
-}
+};
 
-export function setAreas(a) {
+const setAreas = (a) => {
   areas = Object.assign(areas, a);
-}
+};
 
-export function setTemplates(tmpl) {
+const setTemplates = (tmpl) => {
   templates = tmpl;
-}
+};
+
+export default {
+  fetchTemplate,
+  renderException,
+  setAreas,
+  setTemplates,
+};

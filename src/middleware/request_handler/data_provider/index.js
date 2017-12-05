@@ -43,7 +43,7 @@ const getCustomDataSource = (nocms) => {
   });
 };
 
-export function fetchData(nocms) {
+const fetchData = (nocms) => {
   return new Promise((resolve, reject) => {
     const dataSource = getCustomDataSource(nocms);
     if (dataSource) {
@@ -72,8 +72,16 @@ export function fetchData(nocms) {
         });
     }
   });
-}
-export function addDataSource(pattern, fn) {
-  const dataSourcePattern = typeof pattern === 'string' ? new UrlPattern(pattern) : pattern;
-  dataSources.push({ pattern: dataSourcePattern, fn });
-}
+};
+
+const addDataSource = (pattern, fn) => {
+  if (typeof pattern !== 'string') {
+    throw new Error('Invalid pattern. Must be string');
+  }
+  dataSources.push({ pattern: new UrlPattern(pattern), fn });
+};
+
+export default {
+  fetchData,
+  addDataSource,
+};

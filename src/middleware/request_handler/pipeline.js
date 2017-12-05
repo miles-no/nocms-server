@@ -1,7 +1,7 @@
-const DataProvider = require('./data_provider/');
-const TemplateProvider = require('./template_provider/');
-const PageRenderer = require('./page_renderer/');
-const I18nProvider = require('./i18n/');
+import DataProvider from './data_provider/';
+import TemplateProvider from './template_provider/';
+import PageRenderer from './page_renderer/';
+import I18nProvider from './i18n/';
 
 const api = {
   init(nocms) {

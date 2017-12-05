@@ -1,6 +1,6 @@
 import request from 'superagent';
 
-let phrases = {};
+let phrases = null;
 const config = {};
 
 const fetchData = (nocms, resolve, reject) => {
@@ -47,7 +47,7 @@ const api = {
     });
   },
   dictionary(phraseKey, lang) {
-    if (!phrases[phraseKey] || !phrases[phraseKey][lang]) {
+    if (phrases === null || !phrases[phraseKey] || !phrases[phraseKey][lang]) {
       return phraseKey;
     }
 

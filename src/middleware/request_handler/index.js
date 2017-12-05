@@ -1,8 +1,8 @@
-const requestPipeline = require('./pipeline');
-const dataProvider = require('./data_provider');
-const templateProvider = require('./template_provider');
-const errorPipeline = require('./error_pipeline');
-const i18nDataProvider = require('./i18n');
+import requestPipeline from './pipeline';
+import dataProvider from './data_provider';
+import templateProvider from './template_provider';
+import errorPipeline from './error_pipeline';
+import i18nDataProvider from './i18n';
 
 const config = {};
 
@@ -17,7 +17,7 @@ const api = {
       url,
       site: res.locals.site,
       siteLang: res.locals.lang,
-      config,
+      config: Object.assign({ admin: {}, client: {} }, config),
       logger: config.logger,
       claims: res.locals.claims,
       isNoCMSUser: res.locals.isNoCMSUser,
@@ -30,7 +30,6 @@ const api = {
       res,
       next,
     };
-
     if (req.query.pageId) {
       options.pageId = req.query.pageId;
       options.revision = req.query.rev;

@@ -6,7 +6,7 @@ export default function clearCacheMiddleware(req, res, next) {
       res.status(403).send('Forbidden');
       return;
     }
-    request('BAN', 'http://varnish').end((e) => {
+    request('BAN', 'http://varnish').end((e) => { // TODO: This should come from config
       if (e) {
         res.status(500).send(e);
         return;

@@ -2,7 +2,7 @@ import ServiceDataProvider from './service_data_provider';
 
 export const init = ServiceDataProvider.init;
 export const dictionary = ServiceDataProvider.dictionary;
-export function fetchI18nData(nocms) {
+const fetchI18nData = (nocms) => {
   return new Promise((resolve) => {
     ServiceDataProvider.getPhrases(nocms)
       .then((i18n) => {
@@ -15,4 +15,10 @@ export function fetchI18nData(nocms) {
         resolve(nocms);
       });
   });
-}
+};
+
+export default {
+  init: ServiceDataProvider.init,
+  dictionary: ServiceDataProvider.dictionary,
+  fetchI18nData,
+};

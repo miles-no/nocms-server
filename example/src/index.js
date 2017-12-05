@@ -11,11 +11,13 @@ import HeadContent from './HeadContent.jsx';
 console.log('===========================');
 console.log('STARTING SERVER PACKAGE POC');
 console.log('===========================');
-console.log('TODO: Move publisher login into admin_login container');
-console.log('TODO: Add token secret to main_web_server config to enable nocms-auth');
-console.log('TODO: nocms-auth stores claims in req.locals. Should be res.locals');
-console.log('TODO: Component data provider has been removed. Can we use ESI here instead?');
 console.log('TODO: Upgrade to React 16 in order to be able to inject stuff in head');
+console.log('TODO: Hook up client side script in example');
+console.log('TODO: nocms-auth stores claims in req.locals. Should be res.locals');
+console.log('TODO: miles.no replace moment locale that was removed from MainContent');
+console.log('TODO: miles.no replace componentData requests with ESI as componentData has been removed');
+
+console.log('TODO: Move publisher login into admin_login container');
 console.log('TODO: Example with verifyClaim');
 console.log('TODO: It seems like claims are default array but object when it is resolved.');
 console.log('DISCUSS: MainContent sets moment locals. Should moment be a depenency in this package?');
@@ -59,7 +61,7 @@ const localsCombiner = (req, res, next) => {
 const app1DataSource = (nocms) => {
   return new Promise((resolve) => {
     nocms.pageData = {
-      templateId: 'foo',
+      templateId: 'example',
       pageTitle: 'Foo',
     };
     resolve(nocms);
