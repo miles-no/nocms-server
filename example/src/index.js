@@ -2,7 +2,7 @@
 import React from 'react';
 import logger from 'nocms-logger';
 
-import nocmsServer from '../../src';
+import nocmsServer from 'nocms-server';
 import templates from './templates';
 import redirects from './redirects';
 import HeadContent from './HeadContent.jsx';

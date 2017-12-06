@@ -1,6 +1,6 @@
 import templates from './templates';
-import nocmsClient from '../nocms-render-server/client';
+import { clientApp } from 'nocms-server/clientApp';
 
-nocmsClient
+clientApp
   .setTemplates(templates)
   .render();
