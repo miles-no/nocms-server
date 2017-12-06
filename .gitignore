@@ -32,6 +32,7 @@ env
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 example/build
+example/assets
 lib/
 
 # Dependency directory
@@ -42,4 +43,3 @@ node_modules
 
 # Source maps
 **/*.map
-
