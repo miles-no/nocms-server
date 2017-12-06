@@ -42,7 +42,7 @@ export default class Page extends React.Component {
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="environment" content={runningEnvironment} />
-          <title>{`${pageData.pageTitle}${config.pageTitlePostfix}`}</title>
+          <title>{`${pageData.pageTitle}${config.pageTitlePostfix ? config.pageTitlePostfix : ''}`}</title>
           <link href="/assets/css/main.css" rel="stylesheet" />
           <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
           {loadAdminApp ? <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /> : null }
@@ -57,8 +57,7 @@ export default class Page extends React.Component {
             <JavascriptObject objectName="nocms.pageData" object={pageData} />
             <JavascriptObject objectName="nocms.config" object={config} />
             <JavascriptObject objectName="nocms.i18n" object={i18n} />
-            <script type="text/javascript" src="/assets/javascript/common.js"></script>
-            <script type="text/javascript" src="/assets/javascript/poc.js"></script>
+            <script type="text/javascript" src="/assets/client.js"></script>
 
             { this.renderArea(areas.bottomContent) }
 
