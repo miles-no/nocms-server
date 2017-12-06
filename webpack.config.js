@@ -1,9 +1,40 @@
 const webpack = require('webpack');
 const path = require('path');
 
-const config = {
+const clientBundleConfig = {
   entry: {
-    app: './example/src',
+    client: './example/src/client',
+  },
+  output: {
+    path: path.join(__dirname, '/example/assets'),
+    filename: '[name].js',
+  },
+  devtool: 'source-map',
+  target: 'web',
+  module: {
+    rules: [
+      {
+        test: /\.jsx$|\.js$/,
+        loader: 'eslint-loader',
+        include: path.join(__dirname, '/assets'),
+        exclude: /bundle\.js$/,
+      },
+      { test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+    ],
+  },
+  resolve: {
+    alias: {
+      'nocms-server': path.resolve(__dirname, 'src'),
+    },
+  },
+};
+
+const serverBundleConfig = {
+  entry: {
+    server: './example/src',
   },
   devtool: 'source-map',
   target: 'node',
@@ -27,11 +58,11 @@ const config = {
     ],
   },
   plugins: [new webpack.DefinePlugin({ 'global.GENTLY': false })],
-  // resolve: {
-  //   alias: {
-  //     'nocms-server': path.resolve(__dirname, 'src'),
-  //   },
-  // },
+  resolve: {
+    alias: {
+      'nocms-server': path.resolve(__dirname, 'src'),
+    },
+  },
 };
 
-module.exports = config;
+module.exports = [serverBundleConfig, clientBundleConfig];
