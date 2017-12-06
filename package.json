@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "node ./node_modules/webpack/bin/webpack.js --watch",
     "build": "node ./node_modules/webpack/bin/webpack.js",
-    "example": "node ./example/build/app.js",
+    "start": "node ./example/build/app.js",
+    "dev": "nodemon ./example/build/server.js -w ./example/build",
     "prepare": "babel ./src --out-dir ./lib --source-maps --presets env,react",
     "eslint": "eslint --ext .js, .jsx .",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
