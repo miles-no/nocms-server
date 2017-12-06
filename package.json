@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --watch",
+    "watch": "node ./node_modules/webpack/bin/webpack.js --watch",
+    "build": "node ./node_modules/webpack/bin/webpack.js",
     "example": "node ./example/build/app.js",
     "prepare": "babel ./src --out-dir ./lib --source-maps --presets env,react",
     "eslint": "eslint --ext .js, .jsx .",
@@ -60,7 +61,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "semantic-release": "^8.2.0",
-    "webpack": "^3.8.1",
+    "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.5"
   },
   "peerDependencies": {
