@@ -180,4 +180,6 @@ api = {
   setTemplates,
 };
 
-module.exports = api;
+const nocmsServer = api;
+
+export default nocmsServer;
