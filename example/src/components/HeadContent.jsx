@@ -1,5 +1,13 @@
+/* eslint-disable */
 import React from 'react';
 
-module.exports = () => {
-  return <meta name="foo" content="FOO" />;
+const HeadContent = () => {
+  return (
+    <>
+      <meta name="foo" content="FOO" />
+      <meta name="bar" content="BAR" />
+    </>
+  );
 };
+
+export default HeadContent;

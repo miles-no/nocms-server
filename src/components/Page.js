@@ -46,6 +46,7 @@ export default class Page extends React.Component {
           <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
           {loadAdminApp ? <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /> : null }
           {loadAdminApp ? <link href="/assets/css/admin.css" rel="stylesheet" /> : null}
+          { this.renderArea(areas.headContent) }
         </head>
         <body className="page">
           <div className="page__wrapper">

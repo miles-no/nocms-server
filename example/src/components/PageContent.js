@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 let i = 0;
 
@@ -11,6 +12,10 @@ const Main = (props) => {
       <p><a href="/p2">Goto 2</a></p>
     </div>
   );
+};
+
+Main.propTypes = {
+  pageTitle: PropTypes.string.isRequired,
 };
 
 export default Main;
