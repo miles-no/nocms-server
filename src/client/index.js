@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import NoCMSClient from './NoCMSClient.jsx';
+import NoCMSClient from './NoCMSClient';
 
 let templates = [];
 

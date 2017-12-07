@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { triggerGlobal, listenToGlobal } from 'nocms-events';
-import MainContent from '../components/MainContent.jsx';
+import MainContent from '../components/MainContent';
 import pageStore from './page_store';
 
 import './navigation';

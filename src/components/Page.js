@@ -1,8 +1,8 @@
 /* eslint react/self-closing-comp: off */
 import React from 'react';
 import PropTypes from 'prop-types';
-import JavascriptObject from './JavascriptObject.jsx';
-import MainContent from './MainContent.jsx';
+import JavascriptObject from './JavascriptObject';
+import MainContent from './MainContent';
 
 export default class Page extends React.Component {
   getChildContext() {

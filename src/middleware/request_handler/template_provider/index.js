@@ -1,7 +1,7 @@
 /* eslint no-param-reassign: off */
 import React from 'react';
 import ReactDOM from 'react-dom/server';
-import Page from '../../../components/Page.jsx';
+import Page from '../../../components/Page';
 import { dictionary } from '../i18n';
 
 let areas = {};
