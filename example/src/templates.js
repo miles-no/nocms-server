@@ -1,9 +1,10 @@
 import React from 'react';
+import PageContent from './components/PageContent';
 
 export default [
   {
     id: 'example',
-    component: <div><h1>Hello NoCMS!</h1><h2>Welcome</h2></div>,
+    component: <PageContent />,
     name: {
       no: 'Eksempel',
       en: 'Example',

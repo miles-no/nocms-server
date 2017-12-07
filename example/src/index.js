@@ -5,7 +5,7 @@ import logger from 'nocms-logger';
 import nocmsServer from 'nocms-server';
 import templates from './templates';
 import redirects from './redirects';
-import HeadContent from './HeadContent.jsx';
+import HeadContent from './components/HeadContent.jsx';
 
 
 console.log('===========================');
@@ -30,6 +30,7 @@ const initConfig = {
   languageList: ['no', 'en'],
   logger,
   port: 9000,
+  assetsFolder: 'example/assets',
 };
 
 const sites = [
