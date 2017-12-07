@@ -34,7 +34,6 @@ export default class Page extends React.Component {
       templates,
     } = this.props;
     const loadAdminApp = claims.isPublisher || claims.admin;
-
     return (
       <html lang={pageData.lang}>
         <head>
@@ -57,7 +56,7 @@ export default class Page extends React.Component {
             <JavascriptObject objectName="nocms.pageData" object={pageData} />
             <JavascriptObject objectName="nocms.config" object={config} />
             <JavascriptObject objectName="nocms.i18n" object={i18n} />
-            <script type="text/javascript" src="/assets/client.js"></script>
+            <script type="text/javascript" src={config.clientAppScript}></script>
 
             { this.renderArea(areas.bottomContent) }
 

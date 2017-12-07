@@ -21,6 +21,9 @@ let config = {
   pageService: null,
   i18nApi: null,
   languageList: [],
+  assetsFolder: 'assets',
+  assetsBasePath: '/assets',
+  clientAppScript: '/assets/js/nocms.js',
 };
 
 let app = null;
@@ -35,9 +38,9 @@ const initMiddleware = () => {
       fn: cookieParser(),
     },
     {
-      name: 'assets', // TODO: Should be removed
-      url: '/assets',
-      fn: express.static('assets', { fallthrough: false, index: false, maxAge: 0 }),
+      name: 'assets',
+      url: config.assetsBasePath,
+      fn: express.static(config.assetsFolder, { fallthrough: false, index: false, maxAge: 0 }),
     },
     {
       name: 'correlator',

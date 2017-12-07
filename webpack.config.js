@@ -3,10 +3,10 @@ const path = require('path');
 
 const clientBundleConfig = {
   entry: {
-    client: './example/src/client',
+    nocms: './example/src/client',
   },
   output: {
-    path: path.join(__dirname, '/example/assets'),
+    path: path.join(__dirname, '/example/assets/js'),
     filename: '[name].js',
   },
   devtool: 'source-map',
