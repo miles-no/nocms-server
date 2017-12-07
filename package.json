@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "description": "Web server for NoCMS sites",
   "main": "lib/index.js",
+  "files": ["lib/clientApp.js"],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "node ./node_modules/webpack/bin/webpack.js --watch",
