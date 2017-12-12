@@ -31,6 +31,7 @@ const initConfig = {
   logger,
   port: 9000,
   assetsFolder: 'example/assets',
+  includeMainCss: true,
 };
 
 const sites = [
