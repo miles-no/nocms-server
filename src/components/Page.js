@@ -42,10 +42,10 @@ export default class Page extends React.Component {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="environment" content={runningEnvironment} />
           <title>{`${pageData.pageTitle}${config.pageTitlePostfix ? config.pageTitlePostfix : ''}`}</title>
-          <link href="/assets/css/main.css" rel="stylesheet" />
+          { config.includeMainCss && <link href="/assets/css/main.css" rel="stylesheet" /> }
           <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
-          {loadAdminApp ? <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /> : null }
-          {loadAdminApp ? <link href="/assets/css/admin.css" rel="stylesheet" /> : null}
+          { loadAdminApp ? <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /> : null }
+          { loadAdminApp ? <link href="/assets/css/admin.css" rel="stylesheet" /> : null }
           { this.renderArea(areas.headContent) }
         </head>
         <body className="page">

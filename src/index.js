@@ -24,6 +24,7 @@ let config = {
   assetsFolder: 'assets',
   assetsBasePath: '/assets',
   clientAppScript: '/assets/js/nocms.js',
+  includeMainCss: true,
 };
 
 let app = null;
