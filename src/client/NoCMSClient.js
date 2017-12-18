@@ -6,7 +6,6 @@ import pageStore from './page_store';
 
 import './navigation';
 
-// TODO: Dictionary needs to be loaded and sent to components
 // TODO Tracking need to be put into a seperate package
 
 export default class NoCMSComponent extends Component {
@@ -16,12 +15,14 @@ export default class NoCMSComponent extends Component {
     this.updatePageData = this.updatePageData.bind(this);
 
     const config = JSON.parse(document.getElementById('nocms.config').innerHTML);
+    const i18n = JSON.parse(document.getElementById('nocms.i18n').innerHTML);
     const pageData = pageStore.init(config)
       .getPageData();
 
     this.state = {
       pageData,
       clientConfig: config,
+      i18n,
     };
 
     this.state.isNoCMSUser = this.isNoCMSUser();
@@ -39,6 +40,7 @@ export default class NoCMSComponent extends Component {
   getChildContext() {
     return {
       config: this.state.clientConfig,
+      i18n: this.state.i18n,
     };
   }
 
@@ -75,6 +77,7 @@ export default class NoCMSComponent extends Component {
 
 NoCMSComponent.childContextTypes = {
   config: PropTypes.object,
+  i18n: PropTypes.object,
 };
 
 NoCMSComponent.propTypes = {
