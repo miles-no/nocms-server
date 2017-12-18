@@ -6,10 +6,11 @@ import MainContent from './MainContent';
 
 export default class Page extends React.Component {
   getChildContext() {
-    const { config, adminConfig } = this.props;
+    const { i18n, config, adminConfig } = this.props;
     return {
       config,
       adminConfig,
+      i18n,
     };
   }
   renderArea(area) {
@@ -98,4 +99,5 @@ Page.defaultProps = {
 Page.childContextTypes = {
   config: PropTypes.object,
   adminConfig: PropTypes.object,
+  i18n: PropTypes.object,
 };
