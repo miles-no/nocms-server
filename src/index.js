@@ -24,7 +24,10 @@ let config = {
   assetsFolder: 'assets',
   assetsBasePath: '/assets',
   clientAppScript: '/assets/js/nocms.js',
+  adminAppScript: '/assets/js/admin.js',
+  adminAppCss: '/assets/css/admin.css',
   includeMainCss: true,
+  mainCss: '/assets/css/main.css',
 };
 
 let app = null;

@@ -43,10 +43,10 @@ export default class Page extends React.Component {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="environment" content={runningEnvironment} />
           <title>{`${pageData.pageTitle}${config.pageTitlePostfix ? config.pageTitlePostfix : ''}`}</title>
-          { config.includeMainCss && <link href="/assets/css/main.css" rel="stylesheet" /> }
+          { config.includeMainCss && <link href={config.mainCss} rel="stylesheet" /> }
           <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
           { loadAdminApp ? <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /> : null }
-          { loadAdminApp ? <link href="/assets/css/admin.css" rel="stylesheet" /> : null }
+          { loadAdminApp ? <link href={config.adminAppCss} rel="stylesheet" /> : null }
           { this.renderArea(areas.headContent) }
         </head>
         <body className="page">
@@ -66,7 +66,7 @@ export default class Page extends React.Component {
               <div className="admin__content">
                 <JavascriptObject objectName="nocms.adminConfig" object={adminConfig} />
                 <div id="adminPanel"></div>
-                <script type="text/javascript" src="/assets/javascript/adminPoc.js"></script>
+                <script type="text/javascript" src={config.adminAppScript}></script>
               </div>
               : null }
           </div>
