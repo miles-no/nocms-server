@@ -17,7 +17,16 @@ const api = {
       url,
       site: res.locals.site,
       siteLang: res.locals.lang,
-      config: Object.assign({ admin: {}, client: { clientAppScript: config.clientAppScript } }, config),
+      config: Object.assign({
+        admin: {},
+        client: { 
+          clientAppScript: config.clientAppScript,
+          adminAppScript: config.adminAppScript,
+          adminAppCss: config.adminAppCss,
+          mainCss: config.mainCss,
+          includeMainCss: config.includeMainCss,
+        },
+      }, config),
       logger: config.logger,
       claims: res.locals.claims,
       isNoCMSUser: res.locals.isNoCMSUser,

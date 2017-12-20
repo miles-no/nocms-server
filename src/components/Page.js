@@ -43,7 +43,7 @@ export default class Page extends React.Component {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="environment" content={runningEnvironment} />
           <title>{`${pageData.pageTitle}${config.pageTitlePostfix ? config.pageTitlePostfix : ''}`}</title>
-          { config.includeMainCss && <link href={config.mainCss} rel="stylesheet" /> }
+          { config.includeMainCss ? <link href={config.mainCss} rel="stylesheet" /> : null }
           <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
           { loadAdminApp ? <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /> : null }
           { loadAdminApp ? <link href={config.adminAppCss} rel="stylesheet" /> : null }
