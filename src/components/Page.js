@@ -26,6 +26,7 @@ export default class Page extends React.Component {
   render() {
     const {
       pageData,
+      pageConfig,
       runningEnvironment,
       claims,
       i18n,
@@ -34,6 +35,15 @@ export default class Page extends React.Component {
       areas,
       templates,
     } = this.props;
+
+    const {
+      adminAppScript,
+      adminAppCss,
+      includeMainCss,
+      mainCss,
+      clientAppScript,
+    } = pageConfig;
+
     const loadAdminApp = claims.isPublisher || claims.admin;
     return (
       <html lang={pageData.lang}>
@@ -43,10 +53,10 @@ export default class Page extends React.Component {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="environment" content={runningEnvironment} />
           <title>{`${pageData.pageTitle}${config.pageTitlePostfix ? config.pageTitlePostfix : ''}`}</title>
-          { config.includeMainCss ? <link href={config.mainCss} rel="stylesheet" /> : null }
+          { includeMainCss ? <link href={mainCss} rel="stylesheet" /> : null }
           <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
           { loadAdminApp ? <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /> : null }
-          { loadAdminApp ? <link href={config.adminAppCss} rel="stylesheet" /> : null }
+          { loadAdminApp ? <link href={adminAppCss} rel="stylesheet" /> : null }
           { this.renderArea(areas.headContent) }
         </head>
         <body className="page">
@@ -58,7 +68,7 @@ export default class Page extends React.Component {
             <JavascriptObject objectName="nocms.pageData" object={pageData} />
             <JavascriptObject objectName="nocms.config" object={config} />
             <JavascriptObject objectName="nocms.i18n" object={i18n} />
-            <script type="text/javascript" src={config.clientAppScript}></script>
+            <script type="text/javascript" src={clientAppScript}></script>
 
             { this.renderArea(areas.bottomContent) }
 
@@ -66,7 +76,7 @@ export default class Page extends React.Component {
               <div className="admin__content">
                 <JavascriptObject objectName="nocms.adminConfig" object={adminConfig} />
                 <div id="adminPanel"></div>
-                <script type="text/javascript" src={config.adminAppScript}></script>
+                <script type="text/javascript" src={adminAppScript}></script>
               </div>
               : null }
           </div>
@@ -84,6 +94,7 @@ Page.propTypes = {
   claims: PropTypes.object,
   i18n: PropTypes.object,
   config: PropTypes.object,
+  pageConfig: PropTypes.object,
   adminConfig: PropTypes.object,
 };
 

@@ -14,6 +14,7 @@ const renderResponse = (nocms, pageData) => {
     i18n={nocms.i18n}
     runningEnvironment={nocms.runningEnvironment}
     config={nocms.config.client}
+    pageConfig={nocms.config.pageConfig}
     site={nocms.site}
     adminConfig={adminConfig}
     areas={areas}

@@ -19,7 +19,8 @@ const api = {
       siteLang: res.locals.lang,
       config: Object.assign({
         admin: {},
-        client: { 
+        client: {},
+        pageConfig: {
           clientAppScript: config.clientAppScript,
           adminAppScript: config.adminAppScript,
           adminAppCss: config.adminAppCss,
