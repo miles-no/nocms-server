@@ -4,18 +4,27 @@ let phrases = null;
 const config = {};
 
 const fetchData = (nocms, resolve, reject) => {
+  if (config.verbose) {
+    config.logger.debug(`i18n: Fetching data. Initiated by ${resolve ? 'request' : 'interval'}`);
+  }
   request
     .get(`${config.i18nApi}/phrases`)
     .set('Accept', 'application/json')
-    .set('x-correlation-id', nocms ? nocms.correlationId : null) // TODO: Should we have a correlationId here?
+    .set('x-correlation-id', nocms ? nocms.correlationId : null) // TODO: Should we have a correlationId here instead of null?
     .end((err, res) => {
       if (err) {
+        if (config.verbose) {
+          config.logger.debug('i18n: Fetching data failed', err);
+        }
         if (reject) {
           reject(err);
         }
         return;
       }
       phrases = {};
+      if (config.verbose) {
+        config.logger.debug('i18n: Fetching data succeeded');
+      }
       if (res.body instanceof Array) {
         res.body.forEach((item) => {
           const phrase = {};
@@ -32,14 +41,17 @@ const fetchData = (nocms, resolve, reject) => {
 };
 
 const api = {
-  init(i18nApi, languageList) {
-    Object.assign(config, { i18nApi, languageList });
+  init(cfg) {
+    Object.assign(config, { i18nApi: cfg.i18nApi, languageList: cfg.languageList, verbse: cfg.verbose, logger: cfg.logger });
     fetchData();
     setInterval(fetchData, 60000);
   },
   getPhrases(nocms) {
     return new Promise((resolve, reject) => {
       if (phrases) {
+        if (config.verbose) {
+          config.logger.debug('i18n: Resolving with cached phrases');
+        }
         resolve(phrases);
         return;
       }

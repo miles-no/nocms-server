@@ -7,12 +7,14 @@ import prometheus from 'prom-client';
 import expressMetrics from 'nocms-express-metrics';
 import { readClaims } from 'nocms-auth';
 
+import prepare from './middleware/prepare';
 import redirectTrailingSlashRequestsMiddleware from './middleware/redirect_trailing_slash_requests_middleware';
 import redirects from './middleware/redirects';
 import siteResolver from './middleware/site_resolver';
 import clearCacheMiddleware from './middleware/clear_cache_middleware';
 import requestHandler from './middleware/request_handler/';
 import errorHandler from './middleware/error_handler_middleware';
+import assetsErrorHandler from './middleware/assets_error_handler_middleware';
 
 let config = {
   port: 3000,
@@ -28,6 +30,7 @@ let config = {
   adminAppCss: '/assets/css/admin.css',
   includeMainCss: true,
   mainCss: '/assets/css/main.css',
+  verbose: false,
 };
 
 let app = null;
@@ -37,10 +40,6 @@ const middlewareList = [];
 
 const initMiddleware = () => {
   return [
-    {
-      name: 'cookieParser',
-      fn: cookieParser(),
-    },
     {
       name: 'assets',
       url: config.assetsBasePath,
@@ -64,16 +63,24 @@ const initMiddleware = () => {
       }),
     },
     {
+      name: 'prepare',
+      fn: prepare(config),
+    },
+    {
+      name: 'cookieParser',
+      fn: cookieParser(),
+    },
+    {
       name: 'redirectTrailingSlashRequests',
-      fn: redirectTrailingSlashRequestsMiddleware,
+      fn: redirectTrailingSlashRequestsMiddleware(config),
     },
     {
       name: 'redirects',
-      fn: redirects.middleware,
+      fn: redirects.middleware(config),
     },
     {
       name: 'siteResolver',
-      fn: siteResolver.middleware,
+      fn: siteResolver.middleware(config),
     },
     {
       name: 'nocms-auth',
@@ -81,7 +88,7 @@ const initMiddleware = () => {
     },
     {
       name: 'clearCacheMiddleware',
-      fn: clearCacheMiddleware,
+      fn: clearCacheMiddleware(config),
     },
   ];
 };
@@ -126,8 +133,10 @@ const setAreas = (areas) => {
 const start = () => {
   requestHandler.setConfig(config);
   errorHandler.setConfig(config);
+  assetsErrorHandler.setConfig(config);
   let middleware = initMiddleware();
   api.addMiddleware('requestHandler', requestHandler.middleware); // TODO: Should this call next?
+  api.addMiddleware('assetsErorHandler', `${config.assetsBasePath}/*`, assetsErrorHandler.middleware);
   api.addMiddleware('errorHandler', errorHandler.middleware); // TODO: Should error handlers be added seperately?
   // TODO: Add middleware: Request logger
 

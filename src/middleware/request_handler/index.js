@@ -9,9 +9,13 @@ const config = {};
 const api = {
   setConfig: (cfg) => {
     Object.assign(config, cfg);
-    i18nDataProvider.init(config.i18nApi, config.languageList);
+    i18nDataProvider.init(config);
   },
   middleware: (req, res, next) => {
+    if (res.locals.verbose) {
+      config.logger.debug('requestHandler: Initializing request', { url: req.url, correlationId: req.correlationId(), json: req.headers.accept === 'application/json' });
+    }
+
     const url = req.url.split('?')[0];
     const options = {
       url,
@@ -36,10 +40,12 @@ const api = {
       runningEnvironment: config.environment,
       googleAnalyticsId: config.googleAnalyticsId,
       correlationId: req.get('x-correlation-id') || 'unknown',
+      verbose: config.verbose,
       req,
       res,
       next,
     };
+
     if (req.query.pageId) {
       options.pageId = req.query.pageId;
       options.revision = req.query.rev;

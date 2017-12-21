@@ -6,8 +6,7 @@ const api = {
       next();
       return;
     }
-    config.logger.error('something went very wrong in nocms'); // TODO Logger must take multiple arguments
-    config.logger.error(err);
+    config.logger.error('something went very wrong in nocms', err);
     res
       .status(500)
       .send('Internal server error') // @TODO: Output actual server error page
