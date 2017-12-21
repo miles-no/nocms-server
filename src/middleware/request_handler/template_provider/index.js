@@ -32,12 +32,18 @@ const renderResponse = (nocms, pageData) => {
 const fetchTemplate = (nocms) => {
   return new Promise((resolve, reject) => {
     if (nocms.exception) {
+      if (nocms.verbose) {
+        nocms.logger.debug('requestHandler: rejecting fetch template because of exception', nocms.exception);
+      }
       reject(nocms);
       return;
     }
     nocms.renderTemplate = () => {
       return renderResponse(nocms, nocms.pageData);
     };
+    if (nocms.verbose) {
+      nocms.logger.debug('requestHandler: fetchTemplate: renderTemplate function added to nocms object');
+    }
     resolve(nocms);
   });
 };
@@ -55,6 +61,11 @@ const renderException = (nocms) => {
     pageTitle: titles[nocms.exception.statusCode.toString()] || dictionary('Det oppsto en feil'),
     lang: nocms.siteLang,
   };
+
+  if (nocms.verbose) {
+    nocms.logger.debug('requestHandler: pageRenderer: render error template', nocms.exception);
+  }
+
   return renderResponse(nocms, errorPageData);
 };
 

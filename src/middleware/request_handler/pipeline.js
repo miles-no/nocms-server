@@ -6,6 +6,9 @@ import I18nProvider from './i18n/';
 const api = {
   init(nocms) {
     return new Promise((resolve) => {
+      if (nocms.verbose) {
+        nocms.logger.debug('requestHandler: pipeline initiated');
+      }
       resolve(nocms);
     });
   },
@@ -15,12 +18,18 @@ const api = {
   renderPage: PageRenderer.renderPage,
   renderLoginForm: TemplateProvider.renderLoginForm,
   sendRedirect: (nocms) => {
+    if (nocms.verbose) {
+      nocms.logger.debug('requestHandler: sending redirect response');
+    }
     nocms.res
       .append('Location', nocms.redirect)
       .append('x-correlation-id', nocms.correlationId)
       .status(301).end();
   },
   sendJsonResponse: (nocms) => {
+    if (nocms.verbose) {
+      nocms.logger.debug('requestHandler: sending json response');
+    }
     nocms.res.status(nocms.statusCode || 200)
       .append('Content-Type', 'application/json')
       .append('x-correlation-id', nocms.correlationId)
@@ -29,6 +38,9 @@ const api = {
       .end();
   },
   sendHtmlResponse: (nocms) => {
+    if (nocms.verbose) {
+      nocms.logger.debug('requestHandler: sending html response');
+    }
     nocms.res.status(nocms.statusCode || 200)
       .append('Cache-Control', 'public')
       .append('Content-Type', 'text/html')

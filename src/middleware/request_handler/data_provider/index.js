@@ -3,28 +3,22 @@ import ServiceDataProvider from './service_data_provider';
 
 const dataSources = [];
 
-const addDefaultPageData = function addDefaultPageData(pageData) {
-  // const pageDataWithDefault = pageData;
-  // const defaultPageData = DefaultPageDataProvider.getForTemplate(pageData.templateId, pageData.lang);
-  // Object.keys(defaultPageData).forEach((key) => {
-  // if (typeof pageDataWithDefault[key] === 'undefined') {
-  //    pageDataWithDefault[key] = defaultPageData[key];
-  //  }
-  // });
-  return pageData;
-};
-
 const applyException = (nocms, err) => {
-  nocms.exception = {
+  const ex = {
     statusCode: err.status || 500,
     message: err.text || 'Internal server error',
     url: err.url,
   };
+  nocms.logger.error('Page data provider exception', ex);
+  nocms.exception = ex;
   return nocms;
 };
 
 const applyPageData = (nocms, res) => {
   if (!!res.movedTo && !(nocms.pageId && nocms.revision)) {
+    if (nocms.verbose) {
+      nocms.logger.debug(`requesthandler: Page moved to ${res.movedTo}`);
+    }
     nocms.exception = {
       statusCode: 301,
       message: `The page has moved to ${res.movedTo}`,
@@ -32,7 +26,10 @@ const applyPageData = (nocms, res) => {
     };
     nocms.redirect = res.movedTo;
   } else {
-    nocms.pageData = addDefaultPageData(res);
+    if (nocms.verbose) {
+      nocms.logger.debug('requesthandler: Applying page data', res);
+    }
+    nocms.pageData = res;
   }
   return nocms;
 };
@@ -47,9 +44,20 @@ const fetchData = (nocms) => {
   return new Promise((resolve, reject) => {
     const dataSource = getCustomDataSource(nocms);
     if (dataSource) {
+      if (nocms.verbose) {
+        nocms.logger.debug(`requestHandler: using custom data source for ${nocms.url}`);
+      }
       dataSource.fn(nocms)
-        .then((res) => { resolve(res); })
+        .then((res) => {
+          if (nocms.verbose) {
+            nocms.logger.debug('requestHandler: got data from custom data source', res.pageData);
+          }
+          resolve(res);
+        })
         .catch((err) => {
+          if (nocms.verbose) {
+            nocms.logger.debug('requestHandler: custom data source fetch failed');
+          }
           reject(applyException(nocms, err));
         });
       return;
@@ -57,17 +65,29 @@ const fetchData = (nocms) => {
     if (nocms.pageId) {
       ServiceDataProvider.getPageDataByPageId(nocms)
         .then((res) => {
+          if (nocms.verbose) {
+            nocms.logger.debug('requestHandler: got page data from page service by id', res);
+          }
           resolve(applyPageData(nocms, res));
         })
         .catch((err) => {
+          if (nocms.verbose) {
+            nocms.logger.debug('requestHandler: fetching page data failed', err);
+          }
           reject(applyException(nocms, err));
         });
     } else {
       ServiceDataProvider.getPageDataByUrl(nocms)
         .then((res) => {
+          if (nocms.verbose) {
+            nocms.logger.debug('requestHandler: got page data from page service by url', res);
+          }
           resolve(applyPageData(nocms, res));
         })
         .catch((err) => {
+          if (nocms.verbose) {
+            nocms.logger.debug('requestHandler: fetching page data failed', err);
+          }
           reject(applyException(nocms, err));
         });
     }

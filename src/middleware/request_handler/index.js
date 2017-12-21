@@ -52,13 +52,18 @@ const api = {
     }
 
     if (req.headers.accept === 'application/json') {
+      if (res.locals.verbose) {
+        config.logger.debug('requestHandler: Running json pipeline');
+      }
       requestPipeline.init(options)
         .then(requestPipeline.fetchData)
         .then(requestPipeline.sendJsonResponse)
         .catch(errorPipeline);
       return;
     }
-
+    if (res.locals.verbose) {
+      config.logger.debug('requestHandler: Running html pipeline');
+    }
     requestPipeline.init(options)
       .then(requestPipeline.fetchI18nData)
       .then(requestPipeline.fetchData)

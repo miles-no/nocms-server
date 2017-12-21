@@ -7,6 +7,9 @@ const titles = {
 };
 
 export default function nocmsErrorHandler(nocms) {
+  if (nocms.verbose) {
+    nocms.logger.debug('requestHandler: initiating error pipeline');
+  }
   if (nocms.redirect) {
     requestPipeline.sendRedirect(nocms);
     return;
@@ -35,12 +38,19 @@ export default function nocmsErrorHandler(nocms) {
   options.statusCode = nocms.exception.statusCode;
 
   if (nocms.req.headers.accept === 'application/json') {
+    if (nocms.verbose) {
+      nocms.logger.debug('requestHandler: error pipeline sending json response');
+    }
     delete options.pageData.templateId;
     delete options.pageData.pageTitle;
     requestPipeline.init(options)
       .then(requestPipeline.sendJsonResponse)
       .catch(nocms.next);
     return;
+  }
+
+  if (nocms.verbose) {
+    nocms.logger.debug('requestHandler: error pipeline sending html response');
   }
 
   requestPipeline.init(options)

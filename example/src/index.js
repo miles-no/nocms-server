@@ -1,12 +1,10 @@
 /* eslint-disable no-console */
 import React from 'react';
-import logger from 'nocms-logger';
-
 import nocmsServer from 'nocms-server'; // eslint-disable-line
+import logger from 'nocms-logger';
 import templates from './templates';
 import redirects from './redirects';
 import HeadContent from './components/HeadContent.jsx';
-
 
 logger.setConfig({
   timestampFormat: '%d %H:%M:%S',
