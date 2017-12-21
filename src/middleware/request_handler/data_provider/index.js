@@ -1,5 +1,5 @@
 import UrlPattern from 'url-pattern';
-import ServiceDataProvider from './service_data_provider';
+import { getPageDataByPageId, getPageDataByUrl } from './service_data_provider';
 
 const dataSources = [];
 
@@ -63,7 +63,7 @@ const fetchData = (nocms) => {
       return;
     }
     if (nocms.pageId) {
-      ServiceDataProvider.getPageDataByPageId(nocms)
+      getPageDataByPageId(nocms)
         .then((res) => {
           if (nocms.verbose) {
             nocms.logger.debug('requestHandler: got page data from page service by id', res);
@@ -77,7 +77,7 @@ const fetchData = (nocms) => {
           reject(applyException(nocms, err));
         });
     } else {
-      ServiceDataProvider.getPageDataByUrl(nocms)
+      getPageDataByUrl(nocms)
         .then((res) => {
           if (nocms.verbose) {
             nocms.logger.debug('requestHandler: got page data from page service by url', res);
