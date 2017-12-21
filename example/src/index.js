@@ -2,25 +2,36 @@
 import React from 'react';
 import logger from 'nocms-logger';
 
-import nocmsServer from 'nocms-server';
+import nocmsServer from 'nocms-server'; // eslint-disable-line
 import templates from './templates';
 import redirects from './redirects';
 import HeadContent from './components/HeadContent.jsx';
 
 
-console.log('===========================');
-console.log('STARTING SERVER PACKAGE POC');
-console.log('===========================');
-console.log('TODO: Upgrade to React 16 in order to be able to inject stuff in head');
-console.log('TODO: Hook up client side script in example');
-console.log('TODO: nocms-auth stores claims in req.locals. Should be res.locals');
-console.log('TODO: miles.no replace moment locale that was removed from MainContent');
-console.log('TODO: miles.no replace componentData requests with ESI as componentData has been removed');
+logger.setConfig({
+  timestampFormat: '%d %H:%M:%S',
+  logFormat: '%T %L - %C',
+  logLevel: 'debug',
+  logAsJson: false,
+  useChalk: true,
+  output: {
+    all: ['console'],
+  },
+});
 
-console.log('TODO: Move publisher login into admin_login container');
-console.log('TODO: Example with verifyClaim');
-console.log('TODO: It seems like claims are default array but object when it is resolved.');
-console.log('DISCUSS: MainContent sets moment locals. Should moment be a depenency in this package?');
+logger.info('===========================');
+logger.info('STARTING SERVER PACKAGE POC');
+logger.info('===========================');
+logger.info('TODO: Upgrade to React 16 in order to be able to inject stuff in head');
+logger.info('TODO: Hook up client side script in example');
+logger.info('TODO: nocms-auth stores claims in req.locals. Should be res.locals');
+logger.info('TODO: miles.no replace moment locale that was removed from MainContent');
+logger.info('TODO: miles.no replace componentData requests with ESI as componentData has been removed');
+
+logger.info('TODO: Move publisher login into admin_login container');
+logger.info('TODO: Example with verifyClaim');
+logger.info('TODO: It seems like claims are default array but object when it is resolved.');
+logger.info('DISCUSS: MainContent sets moment locals. Should moment be a depenency in this package?');
 
 const initConfig = {
   useGzip: false,
@@ -32,6 +43,7 @@ const initConfig = {
   port: 9000,
   assetsFolder: 'example/assets',
   includeMainCss: true,
+  verbose: true,
 };
 
 const sites = [
@@ -48,10 +60,10 @@ const sites = [
 ];
 
 const myRequestLogger = (req, res, next) => {
-  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-  console.log(req.url);
-  console.log(JSON.stringify(res.locals, null, '  '));
-  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+  logger.info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+  logger.info(req.url);
+  logger.info(JSON.stringify(res.locals, null, '  '));
+  logger.info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
   next();
 };
 
@@ -78,7 +90,7 @@ const areas = {
 
 const server = nocmsServer.init(initConfig)
   .addMiddleware('localsCombiner', localsCombiner) // TODO: Remove after nocms-auth is updated
-  .addMiddleware('middlwareLogger', myRequestLogger)
+  // .addMiddleware('middlwareLogger', myRequestLogger)
   .addRedirects(redirects)
   .addRedirect('/foo', '/bar')
   .addSites(sites)
@@ -88,4 +100,4 @@ const server = nocmsServer.init(initConfig)
   .setTemplates(templates)
   .start();
 
-console.log('MIDDLEWARE: ', server.getMiddleware());
+logger.info('MIDDLEWARE: ', server.getMiddleware());
