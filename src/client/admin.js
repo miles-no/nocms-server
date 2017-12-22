@@ -28,7 +28,7 @@ const api = {
   setApplications(apps) {
     applications = apps;
     return this;
-  }
+  },
   render() {
     ReactDOM.render(
       <AdminContent
