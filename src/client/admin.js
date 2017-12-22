@@ -5,6 +5,7 @@ import { AdminContent } from 'nocms-publishing';
 let templates = [];
 let sections = [];
 let languages = [];
+let folders = [];
 
 const api = {
   setTemplates(tmpl) {
@@ -13,6 +14,10 @@ const api = {
   },
   setSections(sect) {
     sections = sect;
+    return this;
+  },
+  setFolders(fold) {
+    folders = fold;
     return this;
   },
   setLanguages(lang) {
@@ -25,6 +30,7 @@ const api = {
         templates={templates}
         sections={sections}
         languages={languages}
+        folders={folders}
       />, document.getElementById('adminPanel'));
     return this;
   },
