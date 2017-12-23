@@ -17,20 +17,6 @@ logger.setConfig({
   },
 });
 
-logger.info('===========================');
-logger.info('STARTING SERVER PACKAGE POC');
-logger.info('===========================');
-logger.info('TODO: Upgrade to React 16 in order to be able to inject stuff in head');
-logger.info('TODO: Hook up client side script in example');
-logger.info('TODO: nocms-auth stores claims in req.locals. Should be res.locals');
-logger.info('TODO: miles.no replace moment locale that was removed from MainContent');
-logger.info('TODO: miles.no replace componentData requests with ESI as componentData has been removed');
-
-logger.info('TODO: Move publisher login into admin_login container');
-logger.info('TODO: Example with verifyClaim');
-logger.info('TODO: It seems like claims are default array but object when it is resolved.');
-logger.info('DISCUSS: MainContent sets moment locals. Should moment be a depenency in this package?');
-
 const initConfig = {
   useGzip: false,
   adminTokenSecret: 'shhhhhh',
@@ -54,6 +40,7 @@ const sites = [
     name: 'nocms-example-2',
     domains: ['127.0.0.1:9000'],
     lang: 'no',
+    default: true,
   },
 ];
 
@@ -62,11 +49,6 @@ const myRequestLogger = (req, res, next) => {
   logger.info(req.url);
   logger.info(JSON.stringify(res.locals, null, '  '));
   logger.info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-  next();
-};
-
-const localsCombiner = (req, res, next) => {
-  Object.assign(res.locals, req.locals);
   next();
 };
 
@@ -87,12 +69,11 @@ const areas = {
 };
 
 const server = nocmsServer.init(initConfig)
-  .addMiddleware('localsCombiner', localsCombiner) // TODO: Remove after nocms-auth is updated
-  // .addMiddleware('middlwareLogger', myRequestLogger)
+  .addMiddleware('middlwareLogger', myRequestLogger)
   .addRedirects(redirects)
   .addRedirect('/foo', '/bar')
   .addSites(sites)
-  .setDefaultSite('nocms-example', 'en') // TODO: Lang could be gotten from sites[site].lang
+  .setDefaultSite('nocms-example')
   .addDataSource('*', app1DataSource) // Better name
   .setAreas(areas)
   .setTemplates(templates)

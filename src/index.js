@@ -116,8 +116,8 @@ const addSites = (sites) => {
   return api;
 };
 
-const setDefaultSite = (name, lang) => {
-  siteResolver.setDefaults(name, lang);
+const setDefaultSite = (name) => {
+  siteResolver.setDefaultSite(name);
   return api;
 };
 
@@ -138,7 +138,6 @@ const start = () => {
   api.addMiddleware('requestHandler', requestHandler.middleware); // TODO: Should this call next?
   api.addMiddleware('assetsErorHandler', `${config.assetsBasePath}/*`, assetsErrorHandler.middleware);
   api.addMiddleware('errorHandler', errorHandler.middleware); // TODO: Should error handlers be added seperately?
-  // TODO: Add middleware: Request logger
 
   middleware = middleware.concat(externalMiddlewares);
 
@@ -152,7 +151,25 @@ const start = () => {
   });
 
   app.listen(config.port, () => {
-    config.logger.info(`Main web server listening on port ${config.port}`);
+    const defaultSite = siteResolver.getDefault();
+    const domains = siteResolver.getDomains();
+    config.logger.info('NoCMS server started with the following config', {
+      port: config.port,
+      tokenSecret: 'SECRET',
+      pageService: config.pageService,
+      i18nApi: config.i18nApi,
+      languageList: config.languageList,
+      assetsFolder: config.assetsFolder,
+      assetsBasePath: config.assetsBasePath,
+      clientAppScript: config.clientAppScript,
+      adminAppScript: config.adminAppScript,
+      adminAppCss: config.adminAppCss,
+      includeMainCss: true,
+      mainCss: config.mainCss,
+      verbose: config.verbose,
+      domains,
+      defaultSite: { name: defaultSite.name, lang: defaultSite.lang },
+    });
   });
 
   return api;
