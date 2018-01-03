@@ -36,7 +36,7 @@
     "nocms-events": "^1.2.0",
     "nocms-express-correlation-id": "^1.0.2",
     "nocms-express-metrics": "^2.0.3",
-    "nocms-publishing": "^3.2.0", 
+    "nocms-publishing": "^3.3.0",
     "nocms-utils": "^1.1.1",
     "prom-client": "^10.2.2",
     "react-aria-modal": "^2.11.1",
