@@ -72,13 +72,9 @@ export default class Page extends React.Component {
 
             { this.renderArea(areas.bottomContent) }
 
-            { loadAdminApp ?
-              <div className="admin__content">
-                <JavascriptObject objectName="nocms.adminConfig" object={adminConfig} />
-                <div id="adminPanel"></div>
-                <script type="text/javascript" src={adminAppScript}></script>
-              </div>
-              : null }
+            { loadAdminApp ? <JavascriptObject objectName="nocms.adminConfig" object={adminConfig} /> : null }
+            { loadAdminApp ? <div id="adminPanel" className="page__admin"></div> : null }
+            { loadAdminApp ? <script type="text/javascript" src={adminAppScript}></script> : null }
           </div>
         </body>
       </html>
