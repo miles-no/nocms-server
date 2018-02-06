@@ -16,8 +16,8 @@ const fetchData = (nocms, resolve, reject) => {
         if (config.verbose) {
           config.logger.debug('i18n: Fetching data failed', err);
         }
-        if (reject) {
-          reject(err);
+        if (resolve) {
+          resolve({});
         }
         return;
       }
@@ -35,7 +35,7 @@ const fetchData = (nocms, resolve, reject) => {
         });
       }
       if (resolve) {
-        resolve(JSON.parse(phrases));
+        resolve(phrases);
       }
     });
 };
@@ -47,7 +47,7 @@ const api = {
     setInterval(fetchData, 60000);
   },
   getPhrases(nocms) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (phrases) {
         if (config.verbose) {
           config.logger.debug('i18n: Resolving with cached phrases');
@@ -55,7 +55,7 @@ const api = {
         resolve(phrases);
         return;
       }
-      fetchData(nocms, resolve, reject);
+      fetchData(nocms, resolve);
     });
   },
   dictionary(phraseKey, lang) {
