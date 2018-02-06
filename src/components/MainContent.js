@@ -48,7 +48,7 @@ export default class MainContent extends Component {
       pageData,
       templates,
     } = this.props;
-    return React.cloneElement(getTemplateComponent(pageData.templateId, templates), pageData);
+    return React.createElement(getTemplateComponent(pageData.templateId, templates), pageData);
   }
 }
 
