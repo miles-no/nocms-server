@@ -42,6 +42,7 @@ export default class Page extends React.Component {
       includeMainCss,
       mainCss,
       clientAppScript,
+      commonAppScript,
     } = pageConfig;
 
     const loadAdminApp = claims.isPublisher || claims.admin;
@@ -69,6 +70,7 @@ export default class Page extends React.Component {
             <JavascriptObject objectName="nocms.config" object={config} />
             <JavascriptObject objectName="nocms.i18n" object={i18n} />
             { this.renderArea(areas.bottomContent) }
+            { commonAppScript ? <script type="text/javascript" src={commonAppScript}></script> : null}
             <script type="text/javascript" src={clientAppScript}></script>
             { loadAdminApp ? <JavascriptObject objectName="nocms.adminConfig" object={adminConfig} /> : null }
             { loadAdminApp ? <div id="adminPanel" className="page__admin"></div> : null }
