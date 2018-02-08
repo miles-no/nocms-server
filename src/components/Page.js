@@ -68,13 +68,12 @@ export default class Page extends React.Component {
             <JavascriptObject objectName="nocms.pageData" object={pageData} />
             <JavascriptObject objectName="nocms.config" object={config} />
             <JavascriptObject objectName="nocms.i18n" object={i18n} />
-            <script type="text/javascript" src={clientAppScript}></script>
-
             { this.renderArea(areas.bottomContent) }
-
+            <script type="text/javascript" src={clientAppScript}></script>
             { loadAdminApp ? <JavascriptObject objectName="nocms.adminConfig" object={adminConfig} /> : null }
             { loadAdminApp ? <div id="adminPanel" className="page__admin"></div> : null }
             { loadAdminApp ? <script type="text/javascript" src={adminAppScript}></script> : null }
+            { this.renderArea(areas.script) }
           </div>
         </body>
       </html>
