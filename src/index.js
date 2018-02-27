@@ -45,7 +45,7 @@ const initMiddleware = () => {
     {
       name: 'assets',
       url: config.assetsBasePath,
-      fn: express.static(config.assetsFolder, { fallthrough: false, index: false, maxAge: 0 }),
+      fn: express.static(config.assetsFolder, { fallthrough: false, index: false }),
     },
     {
       name: 'correlator',
