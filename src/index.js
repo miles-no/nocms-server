@@ -6,6 +6,7 @@ import expressHealth from 'express-healthcheck';
 import prometheus from 'prom-client';
 import expressMetrics from 'nocms-express-metrics';
 import { readClaims } from 'nocms-auth';
+import compression from 'compression';
 
 import prepare from './middleware/prepare';
 import redirectTrailingSlashRequestsMiddleware from './middleware/redirect_trailing_slash_requests_middleware';
@@ -31,6 +32,7 @@ let config = {
   includeMainCss: true,
   mainCss: '/assets/css/main.css',
   verbose: false,
+  compressResponses: true,
 };
 
 let app = null;
@@ -135,6 +137,11 @@ const start = () => {
   errorHandler.setConfig(config);
   assetsErrorHandler.setConfig(config);
   let middleware = initMiddleware();
+
+  if (config.compressResponses) {
+    api.addMiddleware('compression', compression());
+  }
+
   api.addMiddleware('requestHandler', requestHandler.middleware); // TODO: Should this call next?
   api.addMiddleware('assetsErorHandler', `${config.assetsBasePath}/*`, assetsErrorHandler.middleware);
   api.addMiddleware('errorHandler', errorHandler.middleware); // TODO: Should error handlers be added seperately?
@@ -167,6 +174,7 @@ const start = () => {
       includeMainCss: true,
       mainCss: config.mainCss,
       verbose: config.verbose,
+      compressResponses: config.compressResponses,
       domains,
       defaultSite: { name: defaultSite.name, lang: defaultSite.lang },
     });

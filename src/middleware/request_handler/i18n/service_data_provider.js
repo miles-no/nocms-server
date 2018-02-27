@@ -3,7 +3,7 @@ import request from 'superagent';
 let phrases = null;
 const config = {};
 
-const fetchData = (nocms, resolve, reject) => {
+const fetchData = (nocms, resolve) => {
   if (config.verbose) {
     config.logger.debug(`i18n: Fetching data. Initiated by ${resolve ? 'request' : 'interval'}`);
   }
