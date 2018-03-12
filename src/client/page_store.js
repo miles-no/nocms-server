@@ -107,7 +107,7 @@ const api = {
 
     listenToGlobal('nocms.store-page-values', (pageValues) => {
       this.store.updateValues(pageValues);
-      const pageData = this.store.getPageData();
+      const pageData = Object.assign({}, this.store.getPageData(), { hasUnpublishedChanges: true });
       triggerGlobal('nocms.pagedata-updated', pageData);
       this.store.persistChanges();
     });
