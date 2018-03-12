@@ -32,7 +32,6 @@ export function getPageDataByPageId(nocms) {
   return new Promise((resolve, reject) => {
     const data = {
       pageId,
-      rev: nocms.revision,
     };
     if (nocms.verbose) {
       nocms.logger.debug(`requestHandler: page data provider fetching page as ${nocms.authorizationHeader ? 'user' : 'guest'} from ${nocms.config.pageService} with query data`, data);

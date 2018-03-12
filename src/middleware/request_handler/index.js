@@ -48,7 +48,6 @@ const api = {
 
     if (req.query.pageId) {
       options.pageId = req.query.pageId;
-      options.revision = req.query.rev;
     }
 
     if (req.headers.accept === 'application/json') {
