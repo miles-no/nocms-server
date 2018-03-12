@@ -57,6 +57,7 @@ export default function nocmsErrorHandler(nocms) {
   }
 
   requestPipeline.init(options)
+    .then(requestPipeline.fetchI18nData)
     .then(requestPipeline.fetchTemplate)
     .then(requestPipeline.renderPage)
     .then(requestPipeline.sendHtmlResponse)
