@@ -1,4 +1,4 @@
-import request from 'superagent';
+import ajax from 'nocms-ajax';
 import { triggerGlobal, listenToGlobal } from 'nocms-events';
 import utils from 'nocms-utils';
 
@@ -11,10 +11,7 @@ const handleScroll = () => {
 const doNavigation = (pageData) => {
   history.pushState(pageData, pageData.pageTitle, pageData.uri);
   document.title = pageData.pageTitle;
-  if (!pageData.appRootUrl) {
-    // Scroll to top when pageload, but not for office clicks on /sosialt and /menneskene
-    handleScroll();
-  }
+  handleScroll();
   triggerGlobal('nocms.pagedata-loaded', pageData);
   triggerGlobal('nocms.close-modal');
 };
@@ -27,14 +24,13 @@ const handleResponse = (url) => {
         exception: { statusCode: err.status },
         pageTitle: 'Vi kan ikke finne siden',
         uri: url,
-        lang: response ? response.body.pageData.lang : 'no',
+        lang: response ? response.pageData.lang : 'no',
       };
       doNavigation(errorPageData);
       triggerGlobal('page_not_found', url);
       return;
     }
-    const responseData = JSON.parse(response.text);
-    doNavigation(responseData.pageData);
+    doNavigation(response.pageData);
   };
 };
 
@@ -54,7 +50,5 @@ listenToGlobal('navigate', (url, pageData) => {
     doNavigation(pageData);
     return;
   }
-  request.get(url)
-    .set('Accept', 'application/json')
-    .end(handleResponse(url));
+  ajax.get(url, handleResponse(url));
 });
