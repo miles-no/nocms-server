@@ -57,6 +57,7 @@ const api = {
       }
       requestPipeline.init(options)
         .then(requestPipeline.fetchData)
+        .then(requestPipeline.fetchComponentData)
         .then(requestPipeline.sendJsonResponse)
         .catch(errorPipeline);
       return;

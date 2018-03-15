@@ -62,10 +62,11 @@ const PageStore = class PageStore {
   persistChanges() {
     if (this.hasChanges) {
       const pageData = Object.assign({}, this.pageData);
-      delete pageData.componentData;
+      const pageDataWithoutComponentData = Object.assign({}, pageData);
+      delete pageDataWithoutComponentData.componentData;
       const messageObj = {
         messageType: 'nocms-update-page',
-        data: pageData,
+        data: pageDataWithoutComponentData,
       };
 
       const options = {
