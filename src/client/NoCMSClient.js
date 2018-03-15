@@ -33,8 +33,8 @@ export default class NoCMSComponent extends Component {
         getNoCMSUserInfo: () => { return this.getNoCMSUserInfo(); },
         getConfig: (field) => { return this.getConfig(field); },
       };
+      listenToGlobal('nocms.pagedata-updated', this.updatePageData);
     }
-    listenToGlobal('nocms.pagedata-updated', this.updatePageData);
   }
 
   getChildContext() {
