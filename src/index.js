@@ -202,6 +202,11 @@ const addDataSource = (pattern, fn) => {
   return api;
 };
 
+const addComponentDataSource = (componentType, fn) => {
+  requestHandler.addComponentDataSource(componentType, fn);
+  return api;
+};
+
 const setTemplates = (templates) => {
   requestHandler.setTemplates(templates);
   return api;
@@ -212,6 +217,7 @@ api = {
   addRedirects,
   addRedirect,
   addDataSource,
+  addComponentDataSource,
   addSites,
   setDefaultSite,
   addMiddleware,

@@ -62,6 +62,7 @@ const PageStore = class PageStore {
   persistChanges() {
     if (this.hasChanges) {
       const pageData = Object.assign({}, this.pageData);
+      delete pageData.componentData;
       const messageObj = {
         messageType: 'nocms-update-page',
         data: pageData,

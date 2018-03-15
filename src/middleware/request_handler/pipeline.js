@@ -1,4 +1,5 @@
 import DataProvider from './data_provider/';
+import ComponentDataProvider from './component_data_provider';
 import TemplateProvider from './template_provider/';
 import PageRenderer from './page_renderer/';
 import I18nProvider from './i18n/';
@@ -13,6 +14,7 @@ const api = {
     });
   },
   fetchData: DataProvider.fetchData,
+  fetchComponentData: ComponentDataProvider.fetchComponentData,
   fetchTemplate: TemplateProvider.fetchTemplate,
   fetchI18nData: I18nProvider.fetchI18nData,
   renderPage: PageRenderer.renderPage,

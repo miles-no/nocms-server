@@ -1,5 +1,6 @@
 import requestPipeline from './pipeline';
 import dataProvider from './data_provider';
+import componentDataProvider from './component_data_provider';
 import templateProvider from './template_provider';
 import errorPipeline from './error_pipeline';
 import i18nDataProvider from './i18n';
@@ -66,6 +67,7 @@ const api = {
     requestPipeline.init(options)
       .then(requestPipeline.fetchI18nData)
       .then(requestPipeline.fetchData)
+      .then(requestPipeline.fetchComponentData)
       .then(requestPipeline.fetchTemplate)
       .then(requestPipeline.renderPage)
       .then(requestPipeline.sendHtmlResponse)
@@ -73,6 +75,9 @@ const api = {
   },
   addDataSource: (pattern, fn) => {
     dataProvider.addDataSource(pattern, fn);
+  },
+  addComponentDataSource: (componentType, fn) => {
+    componentDataProvider.addComponentDataSource(componentType, fn);
   },
   setAreas: (areas) => {
     templateProvider.setAreas(areas);
