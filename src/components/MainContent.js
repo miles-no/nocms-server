@@ -1,12 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { listenToGlobal, stopListenToGlobal } from 'nocms-events';
+import { listenToGlobal, stopListenToGlobal, triggerGlobal } from 'nocms-events';
+
+const componentsWithDataScope = 'componentsWithData';
+const componentsDataScope = 'componentData';
 
 const getTemplateComponent = (templateId, templates) => {
   const template = templates.find((tmpl) => {
     return tmpl.id === templateId;
   });
   return template.component;
+};
+
+const createComponentDataApi = (getPageData) => {
+  return {
+    registerComponent: (componentType, componentId) => {
+      triggerGlobal('nocms.value-changed', `${componentsWithDataScope}.${componentType}.${componentId}`, {});
+    },
+    getComponentData: (componentType, componentId) => {
+      const pageData = getPageData();
+      const {
+        componentData = {},
+      } = pageData;
+
+      if (componentData[componentType] && componentData[componentType][componentId]) {
+        return componentData[componentType][componentId];
+      }
+
+      return null;
+    },
+    setComponentData: (componentType, componentId, componentData) => {
+      triggerGlobal('nocms.value-changed', `${componentsDataScope}.${componentType}.${componentId}`, componentData);
+    },
+  };
 };
 
 export default class MainContent extends Component {
@@ -22,12 +48,17 @@ export default class MainContent extends Component {
   }
 
   getChildContext() {
+    const {
+      pageData,
+    } = this.props;
+
     return {
       editMode: this.state.editMode,
       lang: this.state.lang,
       isNoCMSUser: this.state.isNoCMSUser,
       config: this.context.config,
       adminLang: 'no',
+      componentDataApi: createComponentDataApi(() => { return pageData; }),
     };
   }
 
@@ -67,4 +98,5 @@ MainContent.childContextTypes = {
   adminLang: PropTypes.string,
   isNoCMSUser: PropTypes.bool,
   config: PropTypes.object,
+  componentDataApi: PropTypes.object,
 };
