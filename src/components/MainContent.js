@@ -17,6 +17,30 @@ const createComponentDataApi = (getPageData) => {
     registerComponent: (componentType, componentId) => {
       triggerGlobal('nocms.value-changed', `${componentsWithDataScope}.${componentType}.${componentId}`, {});
     },
+    unregisterComponent: (componentType, componentId) => {
+      const pageData = getPageData();
+      const {
+        componentsWithData = {},
+      } = pageData;
+
+      if (componentsWithData[componentType] && componentsWithData[componentType][componentId]) {
+        delete componentsWithData[componentType][componentId];
+
+        if (Object.keys(componentsWithData[componentType]).length === 0) {
+          delete componentsWithData[componentType];
+        }
+
+        triggerGlobal('nocms.value-changed', componentsWithDataScope, componentsWithData);
+      }
+    },
+    isComponentRegistered: (componentType, componentId) => {
+      const pageData = getPageData();
+      const {
+        componentsWithData = {},
+      } = pageData;
+
+      return componentsWithData[componentType] && componentsWithData[componentType][componentId];
+    },
     getComponentData: (componentType, componentId) => {
       const pageData = getPageData();
       const {

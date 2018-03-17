@@ -56,13 +56,11 @@ const fetchComponentData = (nocms) => {
         const datasourceArgs = componentsWithData[componentType][componentId];
 
         promiseList.push(new Promise((resolveComponentDataLoaded) => {
-          datasourceHandler(nocms, datasourceArgs).then((componentData) => {
-            applyComponentDataToPageData(nocms, componentType, componentId, componentData);
-            resolveComponentDataLoaded();
+          datasourceHandler(nocms, datasourceArgs, componentType, componentId).then((componentData) => {
+            resolveComponentDataLoaded(applyComponentDataToPageData(nocms, componentType, componentId, componentData));
           }, (error) => {
             nocms.logger.error(`requestHandler: fetch datasource failed for type ${componentType} with id ${componentId}`, { error });
-            applyComponentDataToPageData(nocms, componentType, componentId, error);
-            resolveComponentDataLoaded();
+            resolveComponentDataLoaded(applyComponentDataToPageData(nocms, componentType, componentId, error));
           });
         }));
       });
