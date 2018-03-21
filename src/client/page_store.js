@@ -55,7 +55,7 @@ const PageStore = class PageStore {
   }
 
   updateValues(pageValues) {
-    this.pageData = Object.assign(this.pageData, pageValues);
+    this.pageData = Object.assign({}, this.pageData, pageValues);
     this.hasChanges = true;
   }
 
@@ -96,7 +96,8 @@ const api = {
     });
     listenToGlobal('nocms.value-changed', (scope, value) => {
       this.store.updateScope(scope, value);
-      const pageData = Object.assign({}, this.store.getPageData(), { hasUnpublishedChanges: true });
+      this.store.updateValues({ hasUnpublishedChanges: true });
+      const pageData = Object.assign({}, this.store.getPageData());
       triggerGlobal('nocms.pagedata-updated', pageData);
     });
 
@@ -108,8 +109,8 @@ const api = {
     });
 
     listenToGlobal('nocms.store-page-values', (pageValues) => {
-      this.store.updateValues(pageValues);
-      const pageData = Object.assign({}, this.store.getPageData(), { hasUnpublishedChanges: true });
+      this.store.updateValues({ ...pageValues, hasUnpublishedChanges: true });
+      const pageData = Object.assign({}, this.store.getPageData());
       triggerGlobal('nocms.pagedata-updated', pageData);
       this.store.persistChanges();
     });
