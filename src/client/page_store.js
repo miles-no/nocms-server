@@ -101,11 +101,8 @@ const api = {
       triggerGlobal('nocms.pagedata-updated', pageData);
     });
 
-    listenToGlobal('nocms.new-page-version', (pageId, revision) => {
-      this.store.updateScope('pageId', pageId, true);
-      this.store.updateScope('revision', revision, true);
-      this.store.updateScope('hasUnpublishedChanges', false, true);
-      const pageData = this.store.getPageData();
+    listenToGlobal('nocms.new-page-version', (pageData) => {
+      this.store.setPageData(pageData);
       triggerGlobal('nocms.pagedata-updated', pageData);
     });
 
