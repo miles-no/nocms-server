@@ -96,7 +96,7 @@ const api = {
     });
     listenToGlobal('nocms.value-changed', (scope, value) => {
       this.store.updateScope(scope, value);
-      this.store.updateValues({ hasUnpublishedChanges: true });
+      this.store.updateScope('hasUnpublishedChanges', true, true);
       const pageData = Object.assign({}, this.store.getPageData());
       triggerGlobal('nocms.pagedata-updated', pageData);
     });
@@ -104,14 +104,15 @@ const api = {
     listenToGlobal('nocms.new-page-version', (pageId, revision) => {
       this.store.updateScope('pageId', pageId, true);
       this.store.updateScope('revision', revision, true);
+      this.store.updateScope('hasUnpublishedChanges', false, true);
       const pageData = this.store.getPageData();
       triggerGlobal('nocms.pagedata-updated', pageData);
     });
 
     listenToGlobal('nocms.store-page-values', (pageValues) => {
-      this.store.updateValues(
-        Object.assign({}, pageValues, { hasUnpublishedChanges: true }),
-      );
+      this.store.updateValues(pageValues);
+      this.store.updateScope('hasUnpublishedChanges', true, true);
+
       const pageData = Object.assign({}, this.store.getPageData());
       triggerGlobal('nocms.pagedata-updated', pageData);
       this.store.persistChanges();
