@@ -8,8 +8,5 @@
       "debug": true
     }],
     "@babel/react"
-  ],
-  "plugins": [
-    "transform-object-rest-spread"
   ]
 }
