@@ -48,6 +48,11 @@ const initMiddleware = () => {
       fn: express.static(config.assetsFolder, { fallthrough: false, index: false }),
     },
     {
+      name: 'defaultFaviconHandler',
+      url: '/favicon.ico',
+      fn: (req, res) => { res.status(404).end(); },
+    },
+    {
       name: 'correlator',
       fn: correlator(),
     },
