@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { triggerGlobal, listenToGlobal } from 'nocms-events';
 import MainContent from '../components/MainContent';
-import pageStore from './page_store';
 
 import './navigation';
 
@@ -16,8 +15,7 @@ export default class NoCMSComponent extends Component {
 
     const config = JSON.parse(document.getElementById('nocms.config').innerHTML);
     const i18n = JSON.parse(document.getElementById('nocms.i18n').innerHTML);
-    const pageData = pageStore.init(config)
-      .getPageData();
+    const pageData = JSON.parse(document.getElementById('nocms.pageData').innerHTML);
 
     this.state = {
       pageData,
@@ -34,6 +32,7 @@ export default class NoCMSComponent extends Component {
         getConfig: (field) => { return this.getConfig(field); },
       };
       listenToGlobal('nocms.pagedata-updated', this.updatePageData);
+      listenToGlobal('nocms.pagedata-loaded', this.updatePageData);
     }
   }
 
