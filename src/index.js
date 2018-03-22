@@ -16,6 +16,7 @@ import clearCacheMiddleware from './middleware/clear_cache_middleware';
 import requestHandler from './middleware/request_handler/';
 import errorHandler from './middleware/error_handler_middleware';
 import assetsErrorHandler from './middleware/assets_error_handler_middleware';
+import robotsTxtMiddleware from './middleware/robots_txt';
 
 let config = {
   port: 3000,
@@ -51,6 +52,11 @@ const initMiddleware = () => {
       name: 'defaultFaviconHandler',
       url: '/favicon.ico',
       fn: (req, res) => { res.status(404).end(); },
+    },
+    {
+      name: 'robotsTxtHandler',
+      url: '/robots.txt',
+      fn: robotsTxtMiddleware.middleware,
     },
     {
       name: 'correlator',
@@ -105,6 +111,11 @@ let api = {};
 const init = (cfg = {}) => {
   config = Object.assign(config, cfg);
   app = express();
+  return api;
+};
+
+const setRobotsTxt = (path) => {
+  robotsTxtMiddleware.addRobotsTxt(path);
   return api;
 };
 
@@ -230,6 +241,7 @@ api = {
   getMiddleware,
   setAreas,
   setTemplates,
+  setRobotsTxt,
 };
 
 const nocmsServer = api;

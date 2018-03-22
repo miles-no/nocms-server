@@ -71,6 +71,7 @@ const areas = {
 const server = nocmsServer.init(initConfig)
   .addMiddleware('middlwareLogger', myRequestLogger)
   .addRedirects(redirects)
+  .setRobotsTxt('example/src/robots.txt')
   .addRedirect('/foo', '/bar')
   .addSites(sites)
   .setDefaultSite('nocms-example')
