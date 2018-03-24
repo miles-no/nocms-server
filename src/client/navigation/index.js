@@ -5,7 +5,7 @@ import { triggerGlobal, listenToGlobal } from 'nocms-events';
 import './link_click_handler';
 
 const handleScroll = () => {
-  utils.scrollTo(document.body, 0, 400);
+  utils.scrollTo(document.body, 0, 0);
 };
 
 const doNavigation = (pageData, url) => {
