@@ -1,6 +1,6 @@
 import ajax from 'nocms-ajax';
-import { triggerGlobal, listenToGlobal } from 'nocms-events';
 import utils from 'nocms-utils';
+import { triggerGlobal, listenToGlobal } from 'nocms-events';
 
 import './link_click_handler';
 
