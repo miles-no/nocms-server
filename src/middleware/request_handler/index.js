@@ -27,6 +27,7 @@ const api = {
         client: {},
         pageConfig: {
           clientAppScript: config.clientAppScript,
+          commonAppScript: config.commonAppScript,
           adminAppScript: config.adminAppScript,
           adminAppCss: config.adminAppCss,
           mainCss: config.mainCss,
