@@ -17,6 +17,7 @@ import requestHandler from './middleware/request_handler/';
 import errorHandler from './middleware/error_handler_middleware';
 import assetsErrorHandler from './middleware/assets_error_handler_middleware';
 import robotsTxtMiddleware from './middleware/robots_txt';
+import reauth from './middleware/reauth';
 
 let config = {
   port: 3000,
@@ -99,6 +100,10 @@ const initMiddleware = () => {
     {
       name: 'nocms-auth',
       fn: readClaims(config.adminTokenSecret, config.logger),
+    },
+    {
+      name: 'nocms-reauth',
+      fn: reauth,
     },
     {
       name: 'clearCacheMiddleware',
