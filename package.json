@@ -34,7 +34,7 @@
     "express": "^4.16.2",
     "express-healthcheck": "^0.1.0",
     "nocms-ajax": "^2.0.2",
-    "nocms-auth": "^2.0.0",
+    "nocms-auth": "^2.3.0",
     "nocms-events": "^1.2.0",
     "nocms-express-correlation-id": "^1.0.2",
     "nocms-express-metrics": "^2.0.3",
