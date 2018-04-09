@@ -96,7 +96,7 @@ const api = {
     });
     listenToGlobal('nocms.value-changed', (scope, value) => {
       this.store.updateScope(scope, value);
-      this.store.updateScope('hasUnpublishedChanges', true, true);
+      this.store.updateScope('changed.time', (new Date()).toISOString());
       const pageData = Object.assign({}, this.store.getPageData());
       triggerGlobal('nocms.pagedata-updated', pageData);
     });
@@ -108,7 +108,7 @@ const api = {
 
     listenToGlobal('nocms.store-page-values', (pageValues) => {
       this.store.updateValues(pageValues);
-      this.store.updateScope('hasUnpublishedChanges', true, true);
+      this.store.updateScope('changed.time', (new Date()).toISOString());
 
       const pageData = Object.assign({}, this.store.getPageData());
       triggerGlobal('nocms.pagedata-updated', pageData);
