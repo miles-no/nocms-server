@@ -15,6 +15,7 @@ export default function nocmsErrorHandler(nocms) {
     return;
   }
   const locals = nocms.res ? nocms.res.locals || {} : {};
+  const config = nocms.config || {};
   const options = {
     url: nocms.url,
     config: nocms.config,
@@ -24,10 +25,10 @@ export default function nocmsErrorHandler(nocms) {
     isNoCMSUser: locals.isNoCMSUser,
     authorizationToken: locals.authorizationToken,
     isLoggedIn: locals.isLoggedIn,
-    runningEnvironment: nocms.config.environment,
-    googleAnalyticsId: nocms.config.googleAnalyticsId,
-    correlationId: nocms.req.get('x-correlation-id') || 'unknown',
-    verbose: nocms.config.verbose,
+    runningEnvironment: config.environment,
+    googleAnalyticsId: config.googleAnalyticsId,
+    correlationId: nocms.req ? nocms.req.get('x-correlation-id') : 'unknown',
+    verbose: config.verbose,
     req: nocms.req,
     res: nocms.res,
   };
