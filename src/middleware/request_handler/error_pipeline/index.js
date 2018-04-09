@@ -14,15 +14,16 @@ export default function nocmsErrorHandler(nocms) {
     requestPipeline.sendRedirect(nocms);
     return;
   }
+  const locals = nocms.res ? nocms.res.locals || {} : {};
   const options = {
     url: nocms.url,
     config: nocms.config,
     site: nocms.site,
     logger: nocms.logger,
-    claims: nocms.res.locals.claims,
-    isNoCMSUser: nocms.res.locals.isNoCMSUser,
-    authorizationToken: nocms.res.locals.authorizationToken,
-    isLoggedIn: nocms.res.locals.isLoggedIn,
+    claims: locals.claims,
+    isNoCMSUser: locals.isNoCMSUser,
+    authorizationToken: locals.authorizationToken,
+    isLoggedIn: locals.isLoggedIn,
     runningEnvironment: nocms.config.environment,
     googleAnalyticsId: nocms.config.googleAnalyticsId,
     correlationId: nocms.req.get('x-correlation-id') || 'unknown',
