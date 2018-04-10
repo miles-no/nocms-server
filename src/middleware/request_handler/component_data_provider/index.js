@@ -28,6 +28,10 @@ const addComponentDataSource = (componentType, fn) => {
 
 const fetchComponentData = (nocms) => {
   return new Promise((resolve) => {
+    if (!nocms.pageData) {
+      resolve(nocms);
+      return;
+    }
     const {
       componentsWithData = {},
     } = nocms.pageData;
