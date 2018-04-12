@@ -4,12 +4,13 @@
   "description": "Web server for NoCMS sites",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node ./node_modules/ava/cli.js",
     "watch": "node ./node_modules/webpack/bin/webpack.js --watch",
     "build": "node ./node_modules/webpack/bin/webpack.js",
     "example": "node ./example/build/server.js",
     "dev": "nodemon ./example/build/server.js -w ./example/build",
     "prepare": "babel ./src --out-dir ./lib --source-maps",
+    "build-test": "babel ./test --out-dir ./bin --presets env",
     "eslint": "eslint --ext .js, .jsx .",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
@@ -45,12 +46,15 @@
     "url-pattern": "^1.0.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.34",
-    "@babel/core": "^7.0.0-beta.34",
-    "@babel/preset-env": "^7.0.0-beta.34",
-    "@babel/preset-react": "^7.0.0-beta.34",
+    "@babel/cli": "^7.0.0-beta.44",
+    "@babel/core": "^7.0.0-beta.44",
+    "@babel/preset-env": "^7.0.0-beta.44",
+    "@babel/preset-react": "^7.0.0-beta.44",
+    "@babel/register": "^7.0.0-beta.44",
+    "ava": "^1.0.0-beta.3",
     "babel-eslint": "^8.0.3",
     "babel-loader": "^8.0.0-beta.0",
+    "clear-require": "^2.0.0",
     "condition-circle": "^1.5.0",
     "eslint": "^4.10.0",
     "eslint-config-webteam": "^2.0.0",
@@ -62,6 +66,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "regenerator-runtime": "^0.11.1",
     "semantic-release": "^8.2.0",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.5"
@@ -73,5 +78,14 @@
   },
   "release": {
     "verifyConditions": "condition-circle"
+  },
+  "ava": {
+    "require": [
+      "@babel/register"
+    ],
+    "files": [
+      "test/**/*.js",
+      "!test/middleware/mocks.js"
+    ]
   }
 }
