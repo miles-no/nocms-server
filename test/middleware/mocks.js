@@ -30,22 +30,22 @@ export function res(test, expectations) {
   return api;
 }
 
-export function req(uriParam, options = {}) {
-  const parts = uriParam.match(/:\/\/([^\/]+)(\/.*|$)/);
-  let uri = '/';
+export function req(urlParam, options = {}) {
+  const parts = urlParam.match(/:\/\/([^\/]+)(\/.*|$)/);
+  let url = '/';
   let host;
 
   if (parts) {
-    uri = parts[2];
+    url = parts[2];
     host = parts[1];
   } else {
-    uri = uriParam;
+    url = urlParam;
   }
 
   const headers = Object.assign({ host }, options.headers);
   return {
     headers,
-    uri: uri || '/',
+    url: url || '/',
   };
 }
 
@@ -56,7 +56,7 @@ export function next(t, verifications = {}) {
         t.pass();
       }
       if (verifications.isNotCalled) {
-        t.fail();
+        t.fail('next should not be called');
       }
       if (verifications.isCalledWithError) {
         t.truthy(err, 'Next is called without error');
@@ -67,8 +67,3 @@ export function next(t, verifications = {}) {
     }
   };
 }
-
-
-// https://example.com
-// https://example.com/test/foo
-// https://example.com/
