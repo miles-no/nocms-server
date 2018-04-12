@@ -32,7 +32,10 @@ const api = {
   },
   setDefaultSite: (name) => {
     const currentDefault = sites.find((s) => { return s.default; });
-    currentDefault.default = false;
+    if (currentDefault) {
+      currentDefault.default = false;
+    }
+
     const site = sites.find((s) => {
       return s.name === name;
     });
