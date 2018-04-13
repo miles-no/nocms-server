@@ -68,6 +68,7 @@
     "react-dom": "^16.2.0",
     "regenerator-runtime": "^0.11.1",
     "semantic-release": "^8.2.0",
+    "superagent-mock": "^3.7.0",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.5"
   },
