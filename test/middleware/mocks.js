@@ -1,8 +1,8 @@
 
 export function res(test, expectations, options = {}) {
-  let expect = expectations || {};
-  let t = test;
-  
+  const expect = expectations || {};
+  const t = test;
+
   const api = {
     status: (status) => {
       if (t && expect.status) {
@@ -31,8 +31,8 @@ export function res(test, expectations, options = {}) {
   return api;
 }
 
-export function req(urlParam, options = { funcs: {}}) {
-  const parts = urlParam.match(/:\/\/([^\/]+)(\/.*|$)/);
+export function req(urlParam, options = { funcs: {} }) {
+  const parts = urlParam.match(/:\/\/([^/]+)(\/.*|$)/);
   let url = '/';
   let host;
 
@@ -47,7 +47,11 @@ export function req(urlParam, options = { funcs: {}}) {
   return {
     headers,
     url: url || '/',
+    originalUrl: options.originalUrl || url,
     correlationId: () => {},
+    get: (field) => {
+      return options[field] || '';
+    },
   };
 }
 

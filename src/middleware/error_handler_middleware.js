@@ -6,11 +6,16 @@ const api = {
       next();
       return;
     }
-    if (config.logger) {
-      config.logger.error('something went very wrong in nocms', err);
-    }
+
     const status = err.status || 500;
     const message = err.message || 'Internal server error';
+
+    if (status === 404) {
+      config.logger.info(`404: ${req.url} refered from ${req.get('Referer') || '"unknown"'}`, { url: req.url, originalUrl: req.originalUrl, referrer: req.get('Referer') });
+    } else {
+      config.logger.error(`${status}: ${req.url} Error`, err);
+    }
+
     res
       .status(status)
       .send(`${status} ${message}`); // @TODO: Output actual server error page

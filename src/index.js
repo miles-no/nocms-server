@@ -15,7 +15,6 @@ import siteResolver from './middleware/site_resolver';
 import clearCacheMiddleware from './middleware/clear_cache_middleware';
 import requestHandler from './middleware/request_handler/';
 import errorHandler from './middleware/error_handler_middleware';
-import assetsErrorHandler from './middleware/assets_error_handler_middleware';
 import robotsTxtMiddleware from './middleware/robots_txt';
 import reauth from './middleware/reauth';
 
@@ -157,7 +156,6 @@ const setAreas = (areas) => {
 const start = () => {
   requestHandler.setConfig(config);
   errorHandler.setConfig(config);
-  assetsErrorHandler.setConfig(config);
   let middleware = initMiddleware();
 
   if (config.compressResponses) {
@@ -165,7 +163,6 @@ const start = () => {
   }
 
   api.addMiddleware('requestHandler', requestHandler.middleware); // TODO: Should this call next?
-  api.addMiddleware('assetsErorHandler', `${config.assetsBasePath}/*`, assetsErrorHandler.middleware);
   api.addMiddleware('errorHandler', errorHandler.middleware); // TODO: Should error handlers be added seperately?
 
   middleware = middleware.concat(externalMiddlewares);
