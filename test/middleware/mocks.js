@@ -14,6 +14,9 @@ export function res(test, expectations, options = {}) {
       if (expect.callEnd) {
         t.pass();
       }
+      if (options.endTest) {
+        t.end();
+      }
     },
     append: (name, value) => {
       if (expect.append) {
@@ -24,6 +27,9 @@ export function res(test, expectations, options = {}) {
     send: (content) => {
       if (expect.response) {
         t.is(content, expect.response, 'Response content failed');
+      }
+      if (options.endTest) {
+        t.end();
       }
     },
     locals: options.locals || {},
