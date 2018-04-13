@@ -21,7 +21,7 @@ test('should call next if not matching any redirect', (t) => {
   const sut = getSut();
 
   sut.addRedirect('/foo', '/bar');
-  sut.middleware()(reqMock('/bsr'), resMock(), next(t, { isCalled: true }));
+  sut.middleware()(reqMock('/bar'), resMock(), next(t, { isCalled: true }));
 });
 
 test('should handle adding of multiple redirects', (t) => {

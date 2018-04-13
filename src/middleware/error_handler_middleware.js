@@ -6,11 +6,14 @@ const api = {
       next();
       return;
     }
-    config.logger.error('something went very wrong in nocms', err);
+    if (config.logger) {
+      config.logger.error('something went very wrong in nocms', err);
+    }
+    const status = err.status || 500;
+    const message = err.message || 'Internal server error';
     res
-      .status(500)
-      .send('Internal server error') // @TODO: Output actual server error page
-      .end();
+      .status(status)
+      .send(`${status} ${message}`); // @TODO: Output actual server error page
   },
   setConfig: (cfg) => {
     Object.assign(config, cfg);

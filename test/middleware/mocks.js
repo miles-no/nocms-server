@@ -1,7 +1,8 @@
 
-export function res(test, expectations) {
+export function res(test, expectations, options = {}) {
   let expect = expectations || {};
   let t = test;
+  
   const api = {
     status: (status) => {
       if (t && expect.status) {
@@ -25,12 +26,12 @@ export function res(test, expectations) {
         t.is(content, expect.response, 'Response content failed');
       }
     },
-    locals: {},
+    locals: options.locals || {},
   };
   return api;
 }
 
-export function req(urlParam, options = {}) {
+export function req(urlParam, options = { funcs: {}}) {
   const parts = urlParam.match(/:\/\/([^\/]+)(\/.*|$)/);
   let url = '/';
   let host;
@@ -46,6 +47,7 @@ export function req(urlParam, options = {}) {
   return {
     headers,
     url: url || '/',
+    correlationId: () => {},
   };
 }
 
