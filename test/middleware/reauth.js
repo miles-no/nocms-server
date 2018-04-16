@@ -1,5 +1,5 @@
 import test from 'ava';
-import { res as resMock, req as reqMock, next } from './mocks';
+import { res as resMock, req as reqMock, next } from '../mocks';
 
 const clearRequire = require('clear-require');
 

@@ -18,6 +18,7 @@ export function getPageDataByUrl(nocms) {
     if (nocms.verbose) {
       nocms.logger.debug(`requestHandler: page data provider fetching page as ${nocms.authorizationHeader ? 'user' : 'guest'} from ${nocms.config.pageService} with query data`, data);
     }
+
     request
       .get(nocms.config.pageService)
       .query(data)
@@ -36,6 +37,7 @@ export function getPageDataByPageId(nocms) {
     if (nocms.verbose) {
       nocms.logger.debug(`requestHandler: page data provider fetching page as ${nocms.authorizationHeader ? 'user' : 'guest'} from ${nocms.config.pageService} with query data`, data);
     }
+
     request
       .get(`${nocms.config.pageService}/page`)
       .query(data)

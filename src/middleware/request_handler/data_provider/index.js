@@ -9,7 +9,7 @@ const applyException = (nocms, err) => {
     message: err.text || 'Internal server error',
     url: err.url,
   };
-  nocms.logger.error('Page data provider exception', ex);
+  nocms.logger.error('Page data provider exception', ex, nocms, err);
   nocms.exception = ex;
   return nocms;
 };
