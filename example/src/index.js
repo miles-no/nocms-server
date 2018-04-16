@@ -18,7 +18,6 @@ logger.setConfig({
 });
 
 const initConfig = {
-  useGzip: false,
   adminTokenSecret: 'shhhhhh',
   pageService: 'localhost:3001',
   i18nApi: 'localhost:3002',
