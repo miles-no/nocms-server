@@ -8,7 +8,7 @@ const api = {
         nocms.html = nocms.renderTemplate();
       } catch (exception) {
         if (nocms.verbose) {
-          nocms.logger.debug('requestHandler: pageRenderer: render failed', exception);
+          nocms.logger.error('requestHandler: pageRenderer: render failed', exception);
         }
         reject(exception);
         return;
