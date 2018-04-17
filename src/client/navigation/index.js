@@ -8,15 +8,28 @@ const handleScroll = () => {
   utils.scrollTo(document.body, 0, 0);
 };
 
-const doNavigation = (pageData, url) => {
-  history.pushState(pageData, pageData.pageTitle, url || pageData.uri);
+const doNavigation = (pageData, url, options = {}) => {
+  const {
+    replaceState = false,
+    keepScrollPosition = false,
+  } = options;
+
+  if (replaceState) {
+    history.replaceState(pageData, pageData.pageTitle, url || pageData.uri);
+  } else {
+    history.pushState(pageData, pageData.pageTitle, url || pageData.uri);
+  }
+
+  if (!keepScrollPosition) {
+    handleScroll();
+  }
+
   document.title = pageData.pageTitle;
-  handleScroll();
   triggerGlobal('nocms.pagedata-loaded', pageData);
   triggerGlobal('nocms.close-modal');
 };
 
-const handleResponse = (url) => {
+const handleResponse = (url, navigationOptions) => {
   return (err, response) => {
     if (err) {
       const errorPageData = {
@@ -26,11 +39,11 @@ const handleResponse = (url) => {
         uri: url,
         lang: response ? response.pageData.lang : 'no',
       };
-      doNavigation(errorPageData, url);
+      doNavigation(errorPageData, url, navigationOptions);
       triggerGlobal('page_not_found', url);
       return;
     }
-    doNavigation(response.pageData, url);
+    doNavigation(response.pageData, url, navigationOptions);
   };
 };
 
@@ -45,10 +58,10 @@ listenToGlobal('nocms.client-loaded', (uri, pageData) => {
   history.replaceState(pageData, pageData.pageTitle, window.location.pathname + window.location.search);
 });
 
-listenToGlobal('navigate', (url, pageData) => {
+listenToGlobal('navigate', (url, pageData, navigationOptions) => {
   if (pageData) {
-    doNavigation(pageData, url);
+    doNavigation(pageData, url, navigationOptions);
     return;
   }
-  ajax.get(url, handleResponse(url));
+  ajax.get(url, handleResponse(url, navigationOptions));
 });
