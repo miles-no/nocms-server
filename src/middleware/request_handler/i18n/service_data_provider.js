@@ -43,8 +43,13 @@ const fetchData = (nocms, resolve) => {
 const api = {
   init(cfg) {
     Object.assign(config, { i18nApi: cfg.i18nApi, languageList: cfg.languageList, verbse: cfg.verbose, logger: cfg.logger });
-    fetchData();
-    setInterval(fetchData, 60000);
+    phrases = null;
+    if (!cfg.doNotFetchOnInit) {
+      fetchData();
+    }
+    if (!cfg.doNotFetchRegularly) {
+      setInterval(fetchData, 60000);
+    }
   },
   getPhrases(nocms) {
     return new Promise((resolve) => {
