@@ -15,7 +15,7 @@ const applyException = (nocms, err) => {
 };
 
 const applyPageData = (nocms, res) => {
-  if (!!res.movedTo && !(nocms.pageId && nocms.revision)) {
+  if (res.movedTo && !nocms.pageId) {
     if (nocms.verbose) {
       nocms.logger.debug(`requesthandler: Page moved to ${res.movedTo}`);
     }
