@@ -13,7 +13,7 @@ test('should respond with location header if token expired flag is set', (t) => 
   const sut = getSut();
   const expect = { status: 307, callEnd: true, append: ['Location', '/api/login/refresh?returnTo=/foo'] };
 
-  sut(reqMock('/foo'), resMock(t, expect, { locals: { tokenExpired: true }}), next(t, { isNotCalled: true }));
+  sut(reqMock('/foo'), resMock(t, expect, { locals: { tokenExpired: true } }), next(t, { isNotCalled: true }));
 });
 
 test('should call next if token not expired flag is set', (t) => {

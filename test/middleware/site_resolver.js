@@ -34,7 +34,7 @@ test('should support create hashmap of domains', (t) => {
   sut.addSites(sites);
   const domains = sut.getDomains();
 
-  const expected = { 
+  const expected = {
     test1: { name: 'test', lang: 'no' },
     test2: { name: 'test', lang: 'no' },
   };
@@ -89,7 +89,7 @@ test('setting default site', (t) => {
 });
 
 test('middleware should apply default site', (t) => {
-  t.plan(3);  
+  t.plan(3);
   const sut = getSut();
   const res = resMock();
   sut.addSites([{ name: 'test', lang: 'no', default: true, domains: ['test'] }]);

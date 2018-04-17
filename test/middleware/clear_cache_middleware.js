@@ -16,9 +16,9 @@ const mockConfig = [
     },
     fixtures: () => {
       if (shouldVarnishFail) {
-        throw new Error(); 
+        throw new Error();
       }
-      return 'OK'; 
+      return 'OK';
     },
   },
 ];
@@ -51,7 +51,7 @@ test.cb('should return error status if request fails', (t) => {
 });
 
 test.cb('should send BAN request', (t) => {
-  t.plan(2)
+  t.plan(2);
   shouldVarnishFail = false;
   const expect = { status: 200, response: 'Cache has been cleared' };
   const res = resMock(t, expect, { endTest: true, locals: { claims: { publisher: true } } });
