@@ -70,7 +70,7 @@ const renderException = (nocms) => {
 };
 
 const setAreas = (a) => {
-  areas = Object.assign(areas, a);
+  areas = a;
 };
 
 const setTemplates = (tmpl) => {
