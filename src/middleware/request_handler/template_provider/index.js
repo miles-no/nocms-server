@@ -50,8 +50,8 @@ const fetchTemplate = (nocms) => {
 
 const renderException = (nocms) => {
   const titles = {
-    404: dictionary('Siden finnes ikke'),
-    500: dictionary('Det oppsto en feil'),
+    404: dictionary('Siden finnes ikke', nocms.siteLang),
+    500: dictionary('Det oppsto en feil', nocms.siteLang),
   };
 
   const errorPageData = {
