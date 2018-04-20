@@ -9,6 +9,9 @@ const getTemplateComponent = (templateId, templates) => {
   const template = templates.find((tmpl) => {
     return tmpl.id === templateId;
   });
+  if (!template) {
+    throw new Error(`Template "${templateId}" was not found`);
+  }
   return template.component;
 };
 
