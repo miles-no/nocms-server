@@ -87,7 +87,7 @@
     ],
     "files": [
       "test/**/*.js",
-      "!test/mocks.js"
+      "!test/*.js"
     ]
   }
 }
