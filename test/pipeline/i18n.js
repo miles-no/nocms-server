@@ -82,3 +82,36 @@ test.cb('should not throw exception if service fails, but return empty object', 
       t.end();
     });
 });
+
+test('dictionary function should reflect key if no translation is found', (t) => {
+  sut.init({
+    i18nApi: 'http://i18n',
+    languageList: ['en', 'no'],
+    doNotFetchOnInit: true,
+    doNotFetchRegularly: true,
+    logger: console,
+  });
+  t.is(sut.dictionary('foo', 'en'), 'foo');
+});
+
+test.cb('dictionary function should expose phrase after fetch', (t) => {
+  serviceShouldFail = false;
+  sut.init({
+    i18nApi: 'http://i18n',
+    languageList: ['en', 'no'],
+    doNotFetchOnInit: true,
+    doNotFetchRegularly: true,
+    logger: console,
+  });
+  sut
+    .fetchI18nData({ config: {}, correlationId: '123' })
+    .then(() => {
+      t.is(sut.dictionary('foo', 'en'), 'foo-en');
+      t.end();
+    })
+    .catch(() => {
+      t.fail('should not throw');
+      t.end();
+    });
+});
+
