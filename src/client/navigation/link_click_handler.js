@@ -56,8 +56,7 @@ listenToGlobal('nocms.client-loaded', () => {
       if (href.indexOf('://') === -1 && href.indexOf('mailto:') === -1 && href.indexOf('tel:') === -1) {
         e.preventDefault();
         triggerGlobal('navigate', href);
-        triggerGlobal('track-event', 'navigation', window.location.pathname);
-        return;
+        // triggerGlobal('track-event', 'navigation', window.location.pathname);
       }
     }
   });

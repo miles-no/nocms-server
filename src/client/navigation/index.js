@@ -27,6 +27,7 @@ const doNavigation = (pageData, url, options = {}) => {
   document.title = pageData.pageTitle;
   triggerGlobal('nocms.pagedata-loaded', pageData);
   triggerGlobal('nocms.close-modal');
+  triggerGlobal('track-event', 'navigation', window.location.pathname);
 };
 
 const handleResponse = (url, navigationOptions) => {
