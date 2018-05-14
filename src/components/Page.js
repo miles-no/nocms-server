@@ -45,7 +45,7 @@ export default class Page extends React.Component {
       commonAppScript,
     } = pageConfig;
 
-    const loadAdminApp = claims.isPublisher || claims.admin;
+    const loadAdminApp = claims.publisher || claims.admin;
     return (
       <html lang={pageData.lang}>
         <head>
