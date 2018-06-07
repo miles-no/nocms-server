@@ -1,6 +1,0 @@
-machine:
-  node:
-    version: v8.4.0
-test:
-  post:
-    - DEBUG=condition npm run semantic-release || true

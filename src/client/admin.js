@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AdminContent } from 'nocms-publishing';
+import { AdminContent } from 'nocms-publishing'; // eslint-disable-line
 
 let templates = [];
 let sections = [];

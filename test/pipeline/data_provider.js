@@ -187,7 +187,7 @@ test.cb('should set exception field if request fails', (t) => {
 
   sut
     .fetchData(nocms)
-    .then((result) => {
+    .then(() => {
       t.fail('The request shoul throw');
       t.end();
     })

@@ -31,9 +31,9 @@ listenToGlobal('nocms.client-loaded', () => {
   navigateNatively.push(global.NoCMS.getConfig('publisherLogoutUrl'));
 
   document.body.addEventListener('click', (e) => {
-    const clickedLink = findClosest(e.target, (c) => c.nodeName === 'A');
+    const clickedLink = findClosest(e.target, (c) => { return c.nodeName === 'A'; });
     if (clickedLink) {
-      if (findClosest(clickedLink, (c) => c.classList && c.classList.contains('edit-mode--active'))) {
+      if (findClosest(clickedLink, (c) => { return c.classList && c.classList.contains('edit-mode--active'); })) {
         e.preventDefault();
         return;
       }

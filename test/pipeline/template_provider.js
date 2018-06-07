@@ -45,7 +45,7 @@ test.cb('should put the renderTemplate function on nocms', (t) => {
 });
 
 test.cb('renderTemplate function should output html', (t) => {
-  const sut = getSut();  
+  const sut = getSut();
   sut.setTemplates(someTemplates);
   sut
     .fetchTemplate(someNocmsObj)

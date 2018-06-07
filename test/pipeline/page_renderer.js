@@ -37,7 +37,7 @@ test.cb('should reject if renderTemplate function throws', (t) => {
       t.fail('should be rejected');
       t.end();
     })
-    .catch((ex) => {
+    .catch(() => {
       t.pass();
       t.end();
     });
