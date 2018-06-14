@@ -79,8 +79,13 @@ export default class MainContent extends Component {
       pageData,
     } = this.props;
 
+    let editMode = this.state.editMode;
+    if (typeof pageData.deprecatedBy !== 'undefined' || (pageData.published && pageData.published.time)) {
+      editMode = false;
+    }
+
     return {
-      editMode: this.state.editMode,
+      editMode,
       lang: this.state.lang,
       isNoCMSUser: this.state.isNoCMSUser,
       config: this.context.config,
