@@ -7,6 +7,7 @@ let sections = [];
 let languages = [];
 let folders = [];
 let applications = [];
+let pageListFilters = [];
 
 const api = {
   setTemplates(tmpl) {
@@ -29,6 +30,10 @@ const api = {
     applications = apps;
     return this;
   },
+  setPageListFilters(filters) {
+    pageListFilters = filters;
+    return this;
+  },
   render() {
     ReactDOM.render(
       <AdminContent
@@ -37,6 +42,7 @@ const api = {
         languages={languages}
         folders={folders}
         applications={applications}
+        pageListFilters={pageListFilters}
       />, document.getElementById('adminPanel'));
     return this;
   },
