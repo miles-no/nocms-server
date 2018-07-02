@@ -16,6 +16,7 @@ import clearCacheMiddleware from './middleware/clear_cache_middleware';
 import requestHandler from './middleware/request_handler/';
 import errorHandler from './middleware/error_handler_middleware';
 import robotsTxtMiddleware from './middleware/robots_txt';
+import sitemapXmlMiddleware from './middleware/sitemap_xml';
 import reauth from './middleware/reauth';
 
 let config = {
@@ -58,6 +59,11 @@ const initMiddleware = () => {
       name: 'robotsTxtHandler',
       url: '/robots.txt',
       fn: robotsTxtMiddleware.middleware,
+    },
+    {
+      name: 'sitemapXmlHandler',
+      url: '/sitemap.xml',
+      fn: sitemapXmlMiddleware.middleware(config),
     },
     {
       name: 'correlator',
@@ -121,6 +127,11 @@ const init = (cfg = {}) => {
 
 const setRobotsTxt = (path) => {
   robotsTxtMiddleware.addRobotsTxt(path);
+  return api;
+}
+;
+const setSitemapXml = (formatters) => {
+  sitemapXmlMiddleware.addSitemapXml(formatters);
   return api;
 };
 
@@ -246,6 +257,7 @@ api = {
   setAreas,
   setTemplates,
   setRobotsTxt,
+  setSitemapXml,
 };
 
 const nocmsServer = api;
