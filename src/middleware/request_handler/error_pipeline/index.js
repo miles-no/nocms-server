@@ -10,10 +10,12 @@ export default function nocmsErrorHandler(nocms) {
   if (nocms.verbose) {
     nocms.logger.debug('requestHandler: initiating error pipeline');
   }
+
   if (nocms.redirect) {
     requestPipeline.sendRedirect(nocms);
     return;
   }
+
   const locals = nocms.res ? nocms.res.locals || {} : {};
   const config = nocms.config || {};
   const options = {

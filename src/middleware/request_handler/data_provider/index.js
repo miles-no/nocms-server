@@ -82,7 +82,13 @@ const fetchData = (nocms) => {
           if (nocms.verbose) {
             nocms.logger.debug('requestHandler: got page data from page service by url', res);
           }
-          resolve(applyPageData(nocms, res));
+
+          const data = applyPageData(nocms, res);
+          if (data.exception) {
+            reject(data);
+          } else {
+            resolve(data);
+          }
         })
         .catch((err) => {
           if (nocms.verbose) {
