@@ -36,7 +36,6 @@ const api = {
       .append('Content-Type', 'application/json')
       .append('x-correlation-id', nocms.correlationId)
       .send(JSON.stringify({ pageData: nocms.pageData }))
-      .json({ pageData: nocms.pageData })
       .end();
   },
   sendHtmlResponse: (nocms) => {
