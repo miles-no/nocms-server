@@ -44,7 +44,7 @@ const handleResponse = (url, navigationOptions) => {
       triggerGlobal('page_not_found', url);
       return;
     }
-    doNavigation(response.pageData, url, navigationOptions);
+    doNavigation(response.pageData, response.pageData.uri, navigationOptions);
   };
 };
 
@@ -61,7 +61,7 @@ listenToGlobal('nocms.client-loaded', (uri, pageData) => {
 
 listenToGlobal('navigate', (url, pageData, navigationOptions) => {
   if (pageData) {
-    doNavigation(pageData, url, navigationOptions);
+    doNavigation(pageData, pageData.uri, navigationOptions);
     return;
   }
   ajax.get(url, handleResponse(url, navigationOptions));
