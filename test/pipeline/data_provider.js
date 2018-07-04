@@ -137,15 +137,15 @@ test.cb('should set exception field if page has been moved', (t) => {
   sut
     .fetchData(nocms)
     .then((result) => {
+      t.log(result);
+      t.fail('Shold throw');
+      t.end();
+    })
+    .catch((result) => {
       t.falsy(result.pageData);
       t.is(result.redirect, '/moved-to-here');
       t.is(result.exception.statusCode, 301);
       t.is(result.exception.location, '/moved-to-here');
-      t.end();
-    })
-    .catch((result) => {
-      t.log(result);
-      t.fail('Shold not throw');
       t.end();
     });
 });
