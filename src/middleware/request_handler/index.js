@@ -46,6 +46,7 @@ const api = {
       req,
       res,
       next,
+      type: 'nocms',
     };
 
     if (req.query.pageId) {

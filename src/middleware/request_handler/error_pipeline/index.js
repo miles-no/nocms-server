@@ -7,6 +7,11 @@ const titles = {
 };
 
 export default function nocmsErrorHandler(nocms) {
+  if (!nocms || nocms.type !== 'nocms') {
+    console.error('Handling unknown exception', nocms);
+    return;
+  }
+
   if (nocms.verbose) {
     nocms.logger.debug('requestHandler: initiating error pipeline');
   }
