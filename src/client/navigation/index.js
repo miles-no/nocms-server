@@ -4,6 +4,21 @@ import { triggerGlobal, listenToGlobal } from 'nocms-events';
 
 import './link_click_handler';
 
+const getUrl = (pageUrl, originalUrl) => {
+  const queryIndex = originalUrl.indexOf('?');
+  const queryString = (queryIndex >= 0) ? originalUrl.slice(queryIndex + 1) : '';
+
+  if (queryString && queryString.indexOf('pageId=') === 0) {
+    return `/?${queryString}`;
+  }
+
+  if (queryString) {
+    return `${pageUrl}?${queryString}`;
+  }
+
+  return pageUrl;
+};
+
 const handleScroll = () => {
   utils.scrollTo(document.body, 0, 0);
 };
@@ -44,7 +59,7 @@ const handleResponse = (url, navigationOptions) => {
       triggerGlobal('page_not_found', url);
       return;
     }
-    doNavigation(response.pageData, response.pageData.uri, navigationOptions);
+    doNavigation(response.pageData, getUrl(response.pageData.uri, url), navigationOptions);
   };
 };
 
@@ -61,7 +76,7 @@ listenToGlobal('nocms.client-loaded', (uri, pageData) => {
 
 listenToGlobal('navigate', (url, pageData, navigationOptions) => {
   if (pageData) {
-    doNavigation(pageData, pageData.uri, navigationOptions);
+    doNavigation(pageData, getUrl(pageData.uri, url), navigationOptions);
     return;
   }
   ajax.get(url, handleResponse(url, navigationOptions));

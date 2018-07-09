@@ -23,8 +23,12 @@ const api = {
     if (nocms.verbose) {
       nocms.logger.debug('requestHandler: sending redirect response');
     }
+
+    const queryIndex = nocms.req.originalUrl.indexOf('?');
+    const queryString = (queryIndex >= 0) ? nocms.req.originalUrl.slice(queryIndex + 1) : '';
+
     nocms.res
-      .append('Location', nocms.redirect)
+      .append('Location', queryString ? `${nocms.redirect}?${queryString}` : nocms.redirect)
       .append('x-correlation-id', nocms.correlationId)
       .status(301).end();
   },
