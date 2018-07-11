@@ -41,7 +41,6 @@
     "nocms-express-metrics": "^2.0.3",
     "nocms-utils": "^1.1.1",
     "prom-client": "^10.2.2",
-    "react-aria-modal": "^2.12.1",
     "superagent": "^3.8.3",
     "url-pattern": "^1.0.3"
   },
