@@ -12,7 +12,7 @@
     "prepare": "babel ./src --out-dir ./lib --source-maps",
     "build-test": "babel ./test --out-dir ./bin --presets env",
     "eslint": "eslint --ext .js, .jsx .",
-    "nsp": "nsp check"
+    "nsp": "npm audit"
   },
   "repository": {
     "type": "git",
@@ -62,7 +62,6 @@
     "eslint-plugin-react": "^7.9.1",
     "mock-require": "^3.0.2",
     "nocms-logger": "^4.2.3",
-    "nsp": "^3.2.1",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
@@ -70,7 +69,7 @@
     "semantic-release": "^15.5.1",
     "superagent-mock": "^3.7.0",
     "webpack": "^3.12.0",
-    "webpack-dev-server": "^2.11.2"
+    "webpack-dev-server": "^3.1.14"
   },
   "peerDependencies": {
     "react": "^16.2.0",
