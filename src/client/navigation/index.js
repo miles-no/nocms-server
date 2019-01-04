@@ -46,11 +46,11 @@ const doNavigation = (pageData, url, options = {}) => {
 };
 
 const handleResponse = (url, navigationOptions) => {
-  return (err, response) => {
+  return (err, response, xhr) => {
     if (err) {
       const errorPageData = {
         templateId: 'errorPage',
-        exception: { statusCode: err.status },
+        exception: { statusCode: xhr.status },
         pageTitle: 'Vi kan ikke finne siden',
         uri: url,
         lang: response ? response.pageData.lang : 'no',
