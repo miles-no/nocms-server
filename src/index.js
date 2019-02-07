@@ -164,7 +164,7 @@ const setAreas = (areas) => {
   return api;
 };
 
-const start = () => {
+const start = (readyCallback) => {
   requestHandler.setConfig(config);
   errorHandler.setConfig(config);
   let middleware = initMiddleware();
@@ -190,6 +190,7 @@ const start = () => {
   app.listen(config.port, () => {
     const defaultSite = siteResolver.getDefault();
     const domains = siteResolver.getDomains();
+
     config.logger.info('NoCMS server started with the following config', {
       port: config.port,
       tokenSecret: 'SECRET',
@@ -210,6 +211,10 @@ const start = () => {
       defaultSite: { name: defaultSite.name, lang: defaultSite.lang },
     });
   });
+
+  if (readyCallback) {
+    readyCallback();
+  }
 
   return api;
 };
